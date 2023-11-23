@@ -14,8 +14,9 @@ public class AcademicBackground {
     @Column(name = "academic_background_id")
     private Long id;
 
-    @Column(name = "academic_background_content")
-    private String content;
+    @Column(name = "academic_background_group")
+    @Enumerated(EnumType.STRING)
+    private AcademicBackgroundGroup group;  // PERIODIC FREQUENT
 
     @OneToMany(mappedBy = "academicBackground")
     private List<User> users = new ArrayList<>();

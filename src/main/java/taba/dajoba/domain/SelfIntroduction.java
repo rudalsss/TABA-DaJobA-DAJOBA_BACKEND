@@ -3,16 +3,22 @@ package taba.dajoba.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name ="self_introduction")
 @Getter
 public class SelfIntroduction {
     @Id @GeneratedValue
-    @Column(name = "instroduction_id")
+    @Column(name = "intro_id")
     private Long id;
 
-    private String introduction;
+    @Column(name = "intro_name")
+    private String name;
+
+    @Column(name = "intro_content")
+    private String introContent;
 
 
     @ManyToOne
@@ -20,5 +26,9 @@ public class SelfIntroduction {
     private User user;
 
     @Column(name = "desire_field")
-    private String field;
+    @Enumerated(EnumType.STRING)
+    private DesireField field;
+
+    @OneToMany(mappedBy = "selfIntroduction")
+    private List<Match> matches = new ArrayList<>();
 }

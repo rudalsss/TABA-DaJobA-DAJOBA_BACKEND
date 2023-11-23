@@ -18,8 +18,9 @@ public class CompanyDetail {
     @Column(name = "avg_salary")
     private Long avgSalary;
 
+    @Embedded
     @Column(name = "company_address")
-    private String companyAddress;
+    private String coAddress;
 
     private Timestamp establishment;
 
@@ -31,7 +32,7 @@ public class CompanyDetail {
     private CompanyType companyType;
 
     @ManyToOne
-    @JoinColumn(name = "pass_introduction_id")
+    @JoinColumn(name = "pass_intro_id")
     private PassIntroduction passIntroduction;
 
     @OneToOne

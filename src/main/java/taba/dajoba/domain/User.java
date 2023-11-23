@@ -14,9 +14,15 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    private String password;
+
     private String name;
 
     private int experience;
+
+    @Embedded
+    @Column(name = "desire_region")
+    private Region region;
 
     @Column(name = "job_content")
     private String content;

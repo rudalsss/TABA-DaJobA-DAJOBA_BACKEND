@@ -26,6 +26,9 @@ public class JobPosting {
     @JoinColumn(name = "employment_type_id")
     private EmploymentType employmentType;
 
+    @Column(name = "job_posting_url")
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -39,4 +42,7 @@ public class JobPosting {
 
     @OneToMany(mappedBy = "jobPosting")
     private List<Match> matches;
+
+    @Enumerated(EnumType.STRING)
+    private JobPostingGroup group;  // PERIODIC FREQUENT
 }

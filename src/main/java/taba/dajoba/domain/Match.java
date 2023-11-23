@@ -14,8 +14,8 @@ public class Match {
     private int matchScore;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "intro_id")
+    private SelfIntroduction selfIntroduction;
 
     @ManyToOne
     @JoinColumn(name = "job_posting_id")

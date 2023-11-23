@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 public class PassIntroduction {
     @Id @GeneratedValue
-    @Column(name = "pass_introduction_id")
+    @Column(name = "pass_intro_id")
     private Long id;
 
-    @Column(name = "pass_introduction")
+    @Column(name = "pass_intro")
     private String introduction;
 
     @OneToMany(mappedBy = "passIntroduction")
