@@ -5,12 +5,14 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
+@Table(name ="match")
 @Getter
 public class Match {
     @Id
     @Column(name = "match_id")
     private Long id;
 
+    @Column(name = "match_score")
     private int matchScore;
 
     @ManyToOne

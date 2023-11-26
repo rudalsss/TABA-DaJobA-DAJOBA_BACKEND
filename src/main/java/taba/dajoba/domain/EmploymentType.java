@@ -14,7 +14,7 @@ public class EmploymentType {
     @Column(name = "employment_type_id")
     private Long id;
 
-    @Column(name = "employment_type_content")
+    @Column(name = "employment_type_content", columnDefinition = "NVARCHAR(200)")
     private String content;
 
     @OneToMany(mappedBy = "employmentType")

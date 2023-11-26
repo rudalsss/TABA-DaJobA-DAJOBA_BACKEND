@@ -18,7 +18,6 @@ public class CompanyDetail {
     @Column(name = "avg_salary")
     private Long avgSalary;
 
-    @Embedded
     @Column(name = "company_address")
     private String coAddress;
 
