@@ -8,15 +8,20 @@ import javax.persistence.*;
 @Table(name ="job_posting_detail")
 @Getter
 public class JobPostingDetail {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "job_posting_id")
     private Long id;
 
-    @Column(name = "group_intro")
+    @Column(name = "group_intro") @Lob
     private String intro;
 
+    @Lob
     private String mainduties;
+
+    @Lob
     private String qualification;
+
+    @Lob
     private String preferential;
 
     @OneToOne

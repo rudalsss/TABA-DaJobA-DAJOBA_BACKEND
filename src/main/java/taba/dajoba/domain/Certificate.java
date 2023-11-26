@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 public class Certificate {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "skill_id")
     private Long id;
 

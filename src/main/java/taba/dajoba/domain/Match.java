@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class Match {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "match_id")
     private Long id;
 

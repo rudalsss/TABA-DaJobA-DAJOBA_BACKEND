@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Table(name ="company_detail")
 @Getter
 public class CompanyDetail {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "company_id")
     private Long id;
 

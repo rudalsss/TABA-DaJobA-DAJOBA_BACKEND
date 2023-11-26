@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "DaJobA_USER")
 @Getter
 public class User {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "user_id")
     private Long id;
 
@@ -30,8 +30,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserSkill> userSkills = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Match> matches = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();

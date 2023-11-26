@@ -10,14 +10,14 @@ import java.util.List;
 @Table(name ="self_introduction")
 @Getter
 public class SelfIntroduction {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "intro_id")
     private Long id;
 
     @Column(name = "intro_name")
     private String name;
 
-    @Column(name = "intro_content")
+    @Column(name = "intro_content", columnDefinition = "CLOB")
     private String introContent;
 
 

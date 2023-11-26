@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 public class CompanyType {
     @Id
-    @GeneratedValue
     @Column(name = "company_type_id")
     private Long id;
 
