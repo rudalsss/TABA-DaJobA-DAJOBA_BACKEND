@@ -5,18 +5,17 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="user_skill")
 @Getter
 public class UserSkill {
     @Id
     @Column(name = "user_skill_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_id")
     private Certificate certificate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }

@@ -16,31 +16,28 @@ public class JobPosting {
 
     private String title;
 
-    @Column(name = "recruit_deadline")
-    private Date deadline;
+    private Date recruitDeadline;
 
-    @Column(name = "working_area")
-    private String area;
+    private String workingArea;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employment_type_id")
     private EmploymentType employmentType;
 
-    @Column(name = "job_posting_url")
-    private String url;
+    private String jobPostingUrl;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_background_id")
     private AcademicBackground academicBackground;
 
-    @OneToOne(mappedBy = "jobPosting")
+    @OneToOne(mappedBy = "jobPosting", fetch = FetchType.LAZY)
     private JobPostingDetail jobPostingDetail;
 
-    @OneToMany(mappedBy = "jobPosting")
+    @OneToMany(mappedBy = "jobPosting", fetch = FetchType.LAZY)
     private List<Match> matches;
 
     @Enumerated(EnumType.STRING)

@@ -6,10 +6,17 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class DesireRegion {
 
-    @Column(name = "desire_province")
+    @Column
     private String desireProvince;
 
-    @Column(name = "desire_city")
-    private String city;
+    @Column
+    private String desireCity;
 
+    public DesireRegion() {
+    }
+
+    public DesireRegion(String desireProvince, String desireCity) {
+        this.desireProvince = desireProvince;
+        this.desireCity = desireCity;
+    }
 }

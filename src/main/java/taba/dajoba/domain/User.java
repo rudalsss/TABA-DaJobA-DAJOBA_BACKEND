@@ -18,22 +18,29 @@ public class User {
 
     private String name;
 
+    private String nickname;
+
+    private String birth;
+
+    private String phoneNumber;
+
+    private String email;
+
     private int experience;
 
     @Embedded
     private DesireRegion desireRegion;
 
-    @Column(name = "job_content")
-    private String content;
+    private String jobContent;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserSkill> userSkills = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_background_id")
     private AcademicBackground academicBackground;
 }

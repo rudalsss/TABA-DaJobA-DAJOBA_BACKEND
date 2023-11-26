@@ -14,9 +14,9 @@ public class EmploymentType {
     @Column(name = "employment_type_id")
     private Long id;
 
-    @Column(name = "employment_type_content", columnDefinition = "NVARCHAR(200)")
-    private String content;
+    @Column(columnDefinition = "NVARCHAR(200)")
+    private String employmentTypeContent;
 
-    @OneToMany(mappedBy = "employmentType")
+    @OneToMany(mappedBy = "employmentType", fetch = FetchType.LAZY)
     private List<JobPosting> jobPostings = new ArrayList<>();
 }

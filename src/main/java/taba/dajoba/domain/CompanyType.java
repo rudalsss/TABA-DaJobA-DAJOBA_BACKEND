@@ -14,9 +14,8 @@ public class CompanyType {
     @Column(name = "company_type_id")
     private Long id;
 
-    @Column(name = "company_type_content")
-    private String content;
+    private String companyTypeContent;
 
-    @OneToMany(mappedBy = "companyType")
+    @OneToMany(mappedBy = "companyType", fetch = FetchType.LAZY)
     private List<CompanyDetail> companyDetails = new ArrayList<>();
 }

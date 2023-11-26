@@ -13,9 +13,8 @@ public class Certificate {
     @Column(name = "skill_id")
     private Long id;
 
-    @Column(name = "skill_name")
-    private String name;
+    private String skillName;
 
-    @OneToMany(mappedBy = "certificate")
+    @OneToMany(mappedBy = "certificate", fetch = FetchType.LAZY)
     private List<UserSkill> userSkills = new ArrayList<>();
 }

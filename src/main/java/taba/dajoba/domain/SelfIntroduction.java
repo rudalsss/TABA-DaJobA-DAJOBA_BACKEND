@@ -14,21 +14,19 @@ public class SelfIntroduction {
     @Column(name = "intro_id")
     private Long id;
 
-    @Column(name = "intro_name")
-    private String name;
+    private String introName;
 
-    @Column(name = "intro_content") @Lob
+    @Lob
     private String introContent;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "desire_field")
     @Enumerated(EnumType.STRING)
-    private DesireField field;
+    private DesireField desireField;
 
-    @OneToMany(mappedBy = "selfIntroduction")
+    @OneToMany(mappedBy = "selfIntroduction", fetch = FetchType.LAZY)
     private List<Match> matches = new ArrayList<>();
 }

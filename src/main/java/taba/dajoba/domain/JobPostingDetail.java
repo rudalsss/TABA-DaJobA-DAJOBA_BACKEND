@@ -12,8 +12,8 @@ public class JobPostingDetail {
     @Column(name = "job_posting_id")
     private Long id;
 
-    @Column(name = "group_intro") @Lob
-    private String intro;
+    @Lob
+    private String groupIntro;
 
     @Lob
     private String mainduties;
@@ -24,7 +24,7 @@ public class JobPostingDetail {
     @Lob
     private String preferential;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 }

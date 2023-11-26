@@ -15,26 +15,23 @@ public class CompanyDetail {
 
     private int headcount;
 
-    @Column(name = "avg_salary")
     private Long avgSalary;
 
-    @Column(name = "company_address")
-    private String coAddress;
+    private String companyAddress;
 
     private Timestamp establishment;
 
-    @Column(name = "main_business")
     private String mainBusiness;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_type_id")
     private CompanyType companyType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pass_intro_id")
     private PassIntroduction passIntroduction;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 }
