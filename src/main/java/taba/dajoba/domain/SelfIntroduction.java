@@ -17,7 +17,7 @@ public class SelfIntroduction {
     @Column(name = "intro_name")
     private String name;
 
-    @Column(name = "intro_content", columnDefinition = "CLOB")
+    @Column(name = "intro_content") @Lob
     private String introContent;
 
 

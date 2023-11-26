@@ -14,7 +14,7 @@ public class PassIntroduction {
     @Column(name = "pass_intro_id")
     private Long id;
 
-    @Column(name = "pass_intro")
+    @Column(name = "pass_intro") @Lob
     private String introduction;
 
     @OneToMany(mappedBy = "passIntroduction")

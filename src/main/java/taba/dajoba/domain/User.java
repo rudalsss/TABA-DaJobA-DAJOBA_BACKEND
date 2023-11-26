@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "DaJobA_USER")
+@Table(name = "dajoba_user")
 @Getter
 public class User {
     @Id
@@ -21,8 +21,7 @@ public class User {
     private int experience;
 
     @Embedded
-    @Column(name = "desire_region")
-    private Region region;
+    private DesireRegion desireRegion;
 
     @Column(name = "job_content")
     private String content;
