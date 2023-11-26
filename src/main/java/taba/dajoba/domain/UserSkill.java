@@ -5,10 +5,10 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="")
+@Table(name ="user_skill")
 @Getter
 public class UserSkill {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "user_skill_id")
     private Long id;
 

@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name ="job_posting")
 @Getter
 public class JobPosting {
-    @Id @GeneratedValue
+    @Id
     @Column(name = "job_posting_id")
     private Long id;
 
