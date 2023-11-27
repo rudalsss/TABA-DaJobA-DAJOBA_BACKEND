@@ -6,8 +6,12 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@SequenceGenerator(
+        name="user_skill_seq", sequenceName = "user_skill_seq", initialValue = 1, allocationSize = 1
+)
 public class UserSkill {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "user_skill_seq")
     @Column(name = "user_skill_id")
     private Long id;
 

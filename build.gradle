@@ -43,5 +43,3 @@ bootBuildImage {
 test {
 	useJUnitPlatform()
 }
-
-//킄크ㅠㅠㅠㅠㅠㅠㅠ

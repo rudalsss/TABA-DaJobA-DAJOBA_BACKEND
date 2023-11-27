@@ -8,8 +8,12 @@ import java.util.List;
 
 @Entity
 @Getter
+@SequenceGenerator(
+        name="pass_introduction_seq", sequenceName = "pass_introduction_seq", initialValue = 1, allocationSize = 1
+)
 public class PassIntroduction {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "pass_introduction_seq")
     @Column(name = "pass_intro_id")
     private Long id;
 

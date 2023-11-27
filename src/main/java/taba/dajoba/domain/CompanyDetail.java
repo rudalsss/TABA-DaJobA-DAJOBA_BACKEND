@@ -8,8 +8,12 @@ import java.sql.Timestamp;
 @Entity
 @Table(name ="company_detail")
 @Getter
+@SequenceGenerator(
+        name="company_detail_seq", sequenceName = "company_detail_seq", initialValue = 1, allocationSize = 1
+)
 public class CompanyDetail {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "company_detail_seq")
     @Column(name = "company_id")
     private Long id;
 
