@@ -12,14 +12,13 @@ public class Match {
     @Column(name = "match_id")
     private Long id;
 
-    @Column(name = "match_score")
     private int matchScore;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "intro_id")
     private SelfIntroduction selfIntroduction;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
 }

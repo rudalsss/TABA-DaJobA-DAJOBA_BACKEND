@@ -7,16 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name ="pass_introduction")
 @Getter
 public class PassIntroduction {
     @Id
     @Column(name = "pass_intro_id")
     private Long id;
 
-    @Column(name = "pass_intro") @Lob
-    private String introduction;
+    @Lob
+    private String passIntro;
 
-    @OneToMany(mappedBy = "passIntroduction")
+    @OneToMany(mappedBy = "passIntroduction", fetch = FetchType.LAZY)
     private List<CompanyDetail> companyDetails = new ArrayList<>();
 }

@@ -7,20 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "academic_background")
 @Getter
 public class AcademicBackground {
     @Id
     @Column(name = "academic_background_id")
     private Long id;
 
-    @Column(name = "academic_background_group")
+    @Column
     @Enumerated(EnumType.STRING)
-    private AcademicBackgroundGroup group;  // PERIODIC FREQUENT
+    private AcademicBackgroundGroup academicBackgroundGroup;  // PERIODIC FREQUENT
 
-    @OneToMany(mappedBy = "academicBackground")
+    @OneToMany(mappedBy = "academicBackground", fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "academicBackground")
+    @OneToMany(mappedBy = "academicBackground", fetch = FetchType.LAZY)
     private List<JobPosting> jobPostings = new ArrayList<>();
 }

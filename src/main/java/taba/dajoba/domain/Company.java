@@ -13,16 +13,15 @@ public class Company {
     @Column(name = "company_id")
     private Long id;
 
-    @Column(name = "company_name")
-    private String name;
+    private String companyName;
 
-    @Column(name = "company_intro") @Lob
-    private String intro;
+    @Lob
+    private String companyIntro;
 
-    @OneToOne(mappedBy = "company")
+    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY)
     private CompanyDetail companyDetail;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<JobPosting> jobPostings = new ArrayList<>();
 
 }
