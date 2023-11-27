@@ -54,7 +54,7 @@ public class User {
         user.id = userDTO.getId();
         user.password = userDTO.getPassword();
         user.name = userDTO.getName();
-        user.nickName = userDTO.getNickName();
+        user.nickname = userDTO.getNickname();
         user.birth = userDTO.getBirth();
         user.phoneNumber = userDTO.getPhoneNumber();
         user.email = userDTO.getEmail();
@@ -68,7 +68,7 @@ public class User {
         userDTO.setUserId(user.userId);
         userDTO.setPassword(user.password);
         userDTO.setName(user.name);
-        userDTO.setNickName(user.nickName);
+        userDTO.setNickname(user.nickname);
         userDTO.setBirth(user.birth);
         userDTO.setPhoneNumber(user.phoneNumber);
         userDTO.setEmail(user.email);
