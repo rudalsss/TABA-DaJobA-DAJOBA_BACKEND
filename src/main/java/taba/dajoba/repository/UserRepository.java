@@ -19,6 +19,7 @@ public class UserRepository {
         em.persist(user);
     }
 
+    //test용
     public User findOne(Long id){ //test용
         return em.find(User.class, id);
     }
