@@ -7,8 +7,12 @@ import javax.persistence.*;
 @Entity
 @Table(name ="job_posting_detail")
 @Getter
+@SequenceGenerator(
+        name="job_posting_detail_seq", sequenceName = "job_posting_detail_seq", initialValue = 1, allocationSize = 1
+)
 public class JobPostingDetail {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "job_posting_detail_seq")
     @Column(name = "job_posting_id")
     private Long id;
 

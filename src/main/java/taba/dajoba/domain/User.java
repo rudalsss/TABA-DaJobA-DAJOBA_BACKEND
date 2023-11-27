@@ -1,7 +1,7 @@
 package taba.dajoba.domain;
 
 import lombok.Getter;
-import taba.dajoba.controller.UserDTO;
+import taba.dajoba.controller.UserForm;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,8 +10,12 @@ import java.util.List;
 @Entity
 @Table(name = "dajoba_user")
 @Getter
+@SequenceGenerator(
+        name="dajoba_user_seq", sequenceName = "dajoba_user_seq", initialValue = 1, allocationSize = 1
+)
 public class User {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "dajoba_user_seq")
     @Column(name = "user_id")
     private Long id;
 
@@ -48,30 +52,29 @@ public class User {
     @JoinColumn(name = "academic_background_id")
     private AcademicBackground academicBackground;
 
-    //DTO-> Entity 변환메서드
-    public static User toUserEntity (UserDTO userDTO){
+    //Form-> Entity 변환메서드
+    public static User toUserEntity (UserForm userForm){
         User user = new User();
-        user.id = userDTO.getId();
-        user.password = userDTO.getPassword();
-        user.name = userDTO.getName();
-        user.nickname = userDTO.getNickname();
-        user.birth = userDTO.getBirth();
-        user.phoneNumber = userDTO.getPhoneNumber();
-        user.email = userDTO.getEmail();
+        user.userId = userForm.getUserId();
+        user.password = userForm.getPassword();
+        user.name = userForm.getName();
+        user.nickname = userForm.getNickname();
+        user.birth = userForm.getBirth();
+        user.phoneNumber = userForm.getPhoneNumber();
+        user.email = userForm.getEmail();
         return user;
     }
 
-    //Entity-> DTO 변환메서드
-    public static UserDTO toUserDTO(User user){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.id);
-        userDTO.setUserId(user.userId);
-        userDTO.setPassword(user.password);
-        userDTO.setName(user.name);
-        userDTO.setNickname(user.nickname);
-        userDTO.setBirth(user.birth);
-        userDTO.setPhoneNumber(user.phoneNumber);
-        userDTO.setEmail(user.email);
-        return userDTO;
+    //Entity-> Form 변환메서드
+    public static UserForm toUserForm(User user){
+        UserForm userForm = new UserForm();
+        userForm.setUserId(user.userId);
+        userForm.setPassword(user.password);
+        userForm.setName(user.name);
+        userForm.setNickname(user.nickname);
+        userForm.setBirth(user.birth);
+        userForm.setPhoneNumber(user.phoneNumber);
+        userForm.setEmail(user.email);
+        return userForm;
     }
 }

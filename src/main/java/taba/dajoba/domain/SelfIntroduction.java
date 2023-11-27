@@ -9,8 +9,12 @@ import java.util.List;
 @Entity
 @Table(name ="self_introduction")
 @Getter
+@SequenceGenerator(
+        name="self_introduction_seq", sequenceName = "self_introduction_seq", initialValue = 1, allocationSize = 1
+)
 public class SelfIntroduction {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "self_introduction_seq")
     @Column(name = "intro_id")
     private Long id;
 

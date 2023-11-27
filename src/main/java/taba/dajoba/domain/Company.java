@@ -8,8 +8,12 @@ import java.util.List;
 
 @Entity
 @Getter
+@SequenceGenerator(
+        name="company_seq", sequenceName = "company_seq", initialValue = 1, allocationSize = 1
+)
 public class Company {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "company_seq")
     @Column(name = "company_id")
     private Long id;
 

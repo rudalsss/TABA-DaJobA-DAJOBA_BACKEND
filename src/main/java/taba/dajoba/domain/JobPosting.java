@@ -9,8 +9,12 @@ import java.util.List;
 @Entity
 @Table(name ="job_posting")
 @Getter
+@SequenceGenerator(
+        name="job_posting_seq", sequenceName = "job_posting_seq", initialValue = 1, allocationSize = 1
+)
 public class JobPosting {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "job_posting_seq")
     @Column(name = "job_posting_id")
     private Long id;
 

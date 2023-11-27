@@ -8,8 +8,12 @@ import java.util.List;
 
 @Entity
 @Getter
+@SequenceGenerator(
+        name="academic_background_seq", sequenceName = "academic_background_seq", initialValue = 1, allocationSize = 1
+)
 public class AcademicBackground {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "academic_background_seq")
     @Column(name = "academic_background_id")
     private Long id;
 
