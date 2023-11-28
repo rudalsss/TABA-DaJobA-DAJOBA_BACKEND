@@ -34,10 +34,6 @@ public class JobPosting {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_background_id")
-    private AcademicBackground academicBackground;
-
     @OneToOne(mappedBy = "jobPosting", fetch = FetchType.LAZY)
     private JobPostingDetail jobPostingDetail;
 

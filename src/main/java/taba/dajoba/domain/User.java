@@ -41,6 +41,9 @@ public class User {
 
     private String jobContent;
 
+    @Enumerated(EnumType.STRING)
+    private AcademicBackgroundGroup academicBackground;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserSkill> userSkills = new ArrayList<>();
 
@@ -48,9 +51,6 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_background_id")
-    private AcademicBackground academicBackground;
 
     //Form-> Entity 변환메서드
     public static User toUserEntity (UserForm userForm){
