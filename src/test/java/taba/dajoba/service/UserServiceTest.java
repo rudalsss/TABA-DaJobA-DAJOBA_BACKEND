@@ -21,7 +21,7 @@ public class UserServiceTest {
 
     @Autowired UserService userService;
     @Autowired UserRepository userRepository;
-    private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    //private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Test
     public void 회원가입() throws Exception{
@@ -30,6 +30,7 @@ public class UserServiceTest {
                 "아이디", "비번", "이름", "별명", "2000-02-28",
                 "010-1234-1234", "이메일@gmail.com"
         );
+
         //when
         Long savedSeq = userService.join(userForm);
 
