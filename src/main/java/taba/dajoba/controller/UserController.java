@@ -27,8 +27,8 @@ public class UserController {
      * 회원가입처리
      */
     @PostMapping("/signup")
-    public String signUp(@ModelAttribute UserDTO userDTO){
-        userService.join(userDTO);
+    public String signUp(@ModelAttribute UserForm userForm){
+        userService.join(userForm);
         return "/user/login";
     }
 
@@ -44,8 +44,8 @@ public class UserController {
      * 로그인처리
      */
     @PostMapping("/login")
-    public String login(@ModelAttribute UserDTO userDTO, HttpSession session){
-        UserDTO loginResult = userService.login(userDTO);
+    public String login(@ModelAttribute UserForm userForm, HttpSession session){
+        UserForm loginResult = userService.login(userForm);
         if(loginResult != null ){
             //로그인 성공
             session.setAttribute("loginUser", loginResult.getUserId());
