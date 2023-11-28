@@ -42,4 +42,7 @@ public class JobPosting {
 
     @Enumerated(EnumType.STRING)
     private JobPostingGroup group;  // PERIODIC FREQUENT
+
+    @Enumerated(EnumType.STRING)
+    private AcademicBackgroundGroup academicBackground;
 }
