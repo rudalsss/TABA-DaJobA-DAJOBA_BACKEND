@@ -1,6 +1,7 @@
 package taba.dajoba.domain;
 
 import lombok.Getter;
+import taba.dajoba.controller.UserExtraInfo;
 import taba.dajoba.controller.UserForm;
 
 import javax.persistence.*;
@@ -34,12 +35,10 @@ public class User {
 
     private String email;
 
-    private int experience;
+    private int experience = -1;
 
     @Embedded
     private DesireRegion desireRegion;
-
-    private String jobContent;
 
     @Enumerated(EnumType.STRING)
     private AcademicBackgroundGroup academicBackground;
@@ -77,4 +76,36 @@ public class User {
         userForm.setEmail(user.email);
         return userForm;
     }
+
+    //Extra정보(필터링정보) 추가하는 메서드
+    public User addExtraInfo(UserExtraInfo userExtraInfo){
+        this.academicBackground = userExtraInfo.getAcademicBackground();
+        this.experience = userExtraInfo.getExperience();
+        this.desireRegion = new DesireRegion(userExtraInfo.getDesireProvince(), userExtraInfo.getDesireCity());
+        return this; //정보 추가한 user반환
+    }
+
+    //Extra정보(필터링정보) 추출하는 메서드
+    public UserExtraInfo loadExtraInfo(){
+        UserExtraInfo extraInfo = new UserExtraInfo();
+        //입력한 추가정보를 가지고 있다면 객체에 추가
+        if(this.academicBackground != null){
+            extraInfo.setAcademicBackground(this.academicBackground);
+        }
+        if(this.experience != -1){
+            extraInfo.setExperience(this.experience);
+        } else {
+            extraInfo.setExperience(-1);
+        }
+        if( this.desireRegion != null && !this.desireRegion.getDesireProvince().equals("")){
+            extraInfo.setDesireProvince(this.desireRegion.getDesireProvince());
+        }
+        if( this.desireRegion != null && !this.desireRegion.getDesireCity().equals("")){
+            extraInfo.setDesireCity(this.desireRegion.getDesireCity());
+        }
+        return extraInfo;//추출한 userinfo정보 반환
+    }
+
+
+
 }

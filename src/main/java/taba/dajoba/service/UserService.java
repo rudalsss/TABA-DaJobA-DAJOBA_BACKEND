@@ -20,7 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     /**
-     * 회원가입
+     * 회원가입 기능
      */
     @Transactional
     public Long join(UserForm userForm) {
@@ -40,6 +40,9 @@ public class UserService {
         }
     }
 
+    /**
+     * 로그인 기능
+     */
     public UserForm login(UserForm userForm) {
         List<User> findUsers = userRepository.findByUserId(userForm.getUserId());
 
