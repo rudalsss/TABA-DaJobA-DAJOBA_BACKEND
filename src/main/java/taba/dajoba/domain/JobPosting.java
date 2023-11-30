@@ -28,6 +28,9 @@ public class JobPosting {
     @JoinColumn(name = "employment_type_id")
     private EmploymentType employmentType;
 
+    @Enumerated(EnumType.STRING)
+    private AcademicBackgroundGroup academicBackground;
+
     private String jobPostingUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,7 +45,4 @@ public class JobPosting {
 
     @Enumerated(EnumType.STRING)
     private JobPostingGroup group;  // PERIODIC FREQUENT
-
-    @Enumerated(EnumType.STRING)
-    private AcademicBackgroundGroup academicBackground;
 }
