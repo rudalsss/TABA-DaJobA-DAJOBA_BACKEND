@@ -35,15 +35,15 @@ public class CertificateController {
     }
 
     //유저 자격정보 등록 및 수정
-//    @PostMapping("users/{userid}/skill")
-//    @ResponseBody
-//    public String updateUserCertificate( @PathVariable String userid , String certificateName  ){
-//        User user = certificateService.updateSkills( userid, certificateName );
-//        if(user != null){
-//            return "SUCCESS";
-//        } else {
-//            return "FAIL";
-//        }
-//    }
+    @PostMapping("users/{userid}/skill")
+    @ResponseBody
+    public String updateUserCertificate( @PathVariable String userid , List<String> certificateName  ){
+        User user = certificateService.updateSkills( userid, certificateName );
+        if(user != null){
+            return "SUCCESS";
+        } else {
+            return "FAIL";
+        }
+    }
 
 }
