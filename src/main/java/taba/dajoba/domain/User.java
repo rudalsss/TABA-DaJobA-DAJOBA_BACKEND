@@ -43,7 +43,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AcademicBackgroundGroup academicBackground;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user")
     private List<UserSkill> userSkills = new ArrayList<>();
 
 
@@ -105,7 +105,5 @@ public class User {
         }
         return extraInfo;//추출한 userinfo정보 반환
     }
-
-
 
 }
