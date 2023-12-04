@@ -1,5 +1,6 @@
 package taba.dajoba.repository;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,41 @@ public class JobPostingRepository {
                 .from(jobPosting)
                 .where(jobPosting.group.eq(JobPostingGroup.PERIODIC))
                 .fetch();
+    }
+
+    //(필터링을 위한) 채용&공채 조회
+//    public List<Tuple> findAll(){
+//        JPAQueryFactory query = new JPAQueryFactory(em);
+//        QJobPosting jobPosting = QJobPosting.jobPosting;
+//        QJobPostingDetail jobPostingDetail = QJobPostingDetail.jobPostingDetail;
+//
+//        List<Tuple> fetch = query
+//                .select(jobPosting.workingArea, jobPostingDetail.mainduties)
+//                .from(jobPosting)
+//                .join(jobPostingDetail)
+//                .on(jobPosting.id.eq(jobPostingDetail.id))
+//                .fetch();
+//
+//        return fetch;
+//    }
+
+    //필터링 쿼리
+    public List<Tuple> filterPosting( String province, String city, String mainduties ){
+        JPAQueryFactory query = new JPAQueryFactory(em);
+        QJobPosting jobPosting = QJobPosting.jobPosting;
+        QJobPostingDetail jobPostingDetail = QJobPostingDetail.jobPostingDetail;
+
+        List<Tuple> fetch = query
+                .select(jobPosting.title, jobPostingDetail)
+                .from(jobPosting)
+                .join(jobPostingDetail)
+                .on(jobPosting.id.eq(jobPostingDetail.id))
+                .where(jobPosting.workingArea.like("%" + province + "%")
+                        .and(jobPosting.workingArea.like("%" + city + "%"))
+                        .and(jobPostingDetail.mainduties.like("%" + mainduties + "%")))
+                .fetch();
+
+        return fetch;
     }
 
 }

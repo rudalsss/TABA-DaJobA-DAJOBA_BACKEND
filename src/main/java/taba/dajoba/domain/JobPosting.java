@@ -1,6 +1,8 @@
 package taba.dajoba.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import taba.dajoba.controller.JobPostingFilter;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -45,4 +47,22 @@ public class JobPosting {
 
     @Enumerated(EnumType.STRING)
     private JobPostingGroup group;  // PERIODIC FREQUENT
+
+//    public JobPostingFilter postingToFilter(JobPosting jobPosting, JobPostingFilter jobPostingFilter){
+//        jobPostingFilter.setWorkingArea(this.workingArea);
+//        return jobPostingFilter;
+//    }
+
+    //테스트용
+    public JobPosting createJobPosting( String title, String workingArea ){
+        JobPosting jobPosting = new JobPosting();
+        jobPosting.title = title;
+        jobPosting.recruitDeadline = "0000";
+        jobPosting.workingArea = workingArea;
+        jobPosting.employmentType = new EmploymentType();
+        jobPosting.academicBackground = null;
+
+
+    }
+
 }

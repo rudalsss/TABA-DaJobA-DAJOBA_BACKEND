@@ -19,7 +19,6 @@ import static taba.dajoba.domain.QUserSkill.userSkill;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
 public class CertificateService {
 
     private final CertificateRepository certificateRepository;
