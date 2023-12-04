@@ -46,10 +46,9 @@ public class SelfIntroduction {
     }
 
     //==수정 메서드==//
-    public void update(String introName, String introContent, User user, DesireField desireField) {
+    public void update(String introName, String introContent, DesireField desireField) {
         this.introName = introName;
         this.introContent = introContent;
-        this.user = user;
         this.desireField = desireField;
     }
 

@@ -18,7 +18,4 @@ public class Certificate {
     private Long id;
 
     private String skillName;
-
-    @OneToMany(mappedBy = "certificate", fetch = FetchType.LAZY)
-    private List<UserSkill> userSkills = new ArrayList<>();
 }
