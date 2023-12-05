@@ -57,7 +57,6 @@ public class JobPostingRepository {
         return query
                 .select(jobPosting)
                 .from(jobPosting)
-                .where(jobPosting.group.eq(JobPostingGroup.FREQUENT))
                 .limit(4)
                 .fetch();
     }

@@ -28,26 +28,33 @@ public class JobPosting {
 
     private String workingArea;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employment_type_id")
-    private EmploymentType employmentType;
+    private String jobPostingUrl;
+
+    @Enumerated(EnumType.STRING)
+    private Field jobGroup;
 
     @Enumerated(EnumType.STRING)
     private AcademicBackgroundGroup academicBackground;
 
-    private String jobPostingUrl;
+    private String groupIntro;
+
+    private String mainduties;
+
+    private String qualification;
+
+    private String preferential;
+
+    private String benefits;
+
+    private String titleIMG;
+
+    private String logoIMG;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(mappedBy = "jobPosting", fetch = FetchType.LAZY)
-    private JobPostingDetail jobPostingDetail;
-
     @OneToMany(mappedBy = "jobPosting")
     private List<Match> matches;
-
-    @Enumerated(EnumType.STRING)
-    private Field jobGroup;
 
 }

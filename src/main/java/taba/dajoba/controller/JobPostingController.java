@@ -23,14 +23,6 @@ public class JobPostingController {
         return "어떤 URL";
     }
 
-    //공채 정보 전달
-    @GetMapping("jobs/periodic")
-    public String showPeriodic(Model model){
-        List<JobPosting> jobPostings = jobPostingService.showAllPeriodic();
-        model.addAttribute("jobPostings", jobPostings);
-        return "어떤 URL";
-    }
-
     //홈페이지에 정보 전달
     @GetMapping("jobs/latest")
     public String topFour(Model model) {
