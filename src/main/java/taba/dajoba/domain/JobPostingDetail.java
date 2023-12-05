@@ -1,6 +1,7 @@
 package taba.dajoba.domain;
 
 import lombok.Getter;
+import taba.dajoba.controller.JobPostingFilter;
 
 import javax.persistence.*;
 
@@ -31,4 +32,10 @@ public class JobPostingDetail {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_posting_id")
     private JobPosting jobPosting;
+
+//    public JobPostingFilter detailToFilter(JobPosting jobPosting, JobPostingFilter jobPostingFilter){
+//        jobPostingFilter.setMainduties(this.mainduties);
+//        return jobPostingFilter;
+//    }
+
 }
