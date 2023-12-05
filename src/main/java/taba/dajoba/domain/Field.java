@@ -1,6 +1,6 @@
 package taba.dajoba.domain;
 
-public enum DesireField {
+public enum Field {
     //==직군==//
     DEVELOPMENT     //개발
     , BUSINESS      //경영·비즈니스

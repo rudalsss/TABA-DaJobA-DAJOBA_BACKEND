@@ -18,11 +18,6 @@ public class JobPostingService {
     private final JobPostingRepository jobPostingRepository;
 
     /**
-     * 채용 공고 저장
-     */
-//    public
-
-    /**
      * 채용 공고 하나 조회
      */
     public JobPosting findOne(Long introId) {
@@ -41,13 +36,6 @@ public class JobPostingService {
      */
     public List<JobPosting> topFourFrequent() {
         return jobPostingRepository.topFourFrequent();
-    }
-
-    /**
-     * 공채 조회
-     */
-    public List<JobPosting> showAllPeriodic() {
-        return jobPostingRepository.showAllPeriodic();
     }
 
     /**

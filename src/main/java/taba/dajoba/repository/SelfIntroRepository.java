@@ -3,7 +3,6 @@ package taba.dajoba.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import taba.dajoba.domain.DesireField;
 import taba.dajoba.domain.QSelfIntroduction;
 import taba.dajoba.domain.QUser;
 import taba.dajoba.domain.SelfIntroduction;

@@ -33,7 +33,7 @@ public class SelfIntroController {
     @PostMapping("users/{userid}/self-intro/new")
     public String createSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid) {
 
-        SelfIntroduction selfIntroduction = selfIntroService.selfIntro(userid, form.getIntroName(), form.getIntroContent(), form.getDesireField());
+        SelfIntroduction selfIntroduction = selfIntroService.selfIntro(userid, form.getIntroName(), form.getIntroContent(), form.getField());
         Long id = selfIntroduction.getId();
         return "users/{userid}/self-intro/"+id;
     }
@@ -51,7 +51,7 @@ public class SelfIntroController {
     public String updateSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid, @PathVariable Long introid) {
         try {
             //자기소개서 업데이트
-            selfIntroService.updateSelfIntro(userid, introid, form.getIntroName(), form.getIntroContent(), form.getDesireField());
+            selfIntroService.updateSelfIntro(userid, introid, form.getIntroName(), form.getIntroContent(), form.getField());
             return "success";
         } catch (Exception e) {
             return "fail" + e.getMessage();
