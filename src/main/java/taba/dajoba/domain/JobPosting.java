@@ -40,9 +40,13 @@ public class JobPosting {
     @OneToOne(mappedBy = "jobPosting", fetch = FetchType.LAZY)
     private JobPostingDetail jobPostingDetail;
 
-    @OneToMany(mappedBy = "jobPosting", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "jobPosting")
     private List<Match> matches;
 
     @Enumerated(EnumType.STRING)
     private JobPostingGroup group;  // PERIODIC FREQUENT
+
+
+
+
 }

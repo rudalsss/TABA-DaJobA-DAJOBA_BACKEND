@@ -18,6 +18,11 @@ public class JobPostingService {
     private final JobPostingRepository jobPostingRepository;
 
     /**
+     * 채용 공고 저장
+     */
+//    public
+
+    /**
      * 채용 공고 하나 조회
      */
     public JobPosting findOne(Long introId) {
@@ -32,6 +37,13 @@ public class JobPostingService {
     }
 
     /**
+     * 채용공고 4개 조회
+     */
+    public List<JobPosting> topFourFrequent() {
+        return jobPostingRepository.topFourFrequent();
+    }
+
+    /**
      * 공채 조회
      */
     public List<JobPosting> showAllPeriodic() {
@@ -42,10 +54,17 @@ public class JobPostingService {
      * 채용 공고 삭제
      */
     @Transactional
-    public void removeSelfIntro(Long id){
+    public void removeJobPosting(Long id){
         //jobPosting 조회
         JobPosting jobPosting = jobPostingRepository.findOne(id);
         //채용공고 삭제
         jobPostingRepository.delete(jobPosting);
+    }
+
+    /**
+     * 지난 채용 공고 삭제
+     */
+    public void removeAllJobPosting() {
+        jobPostingRepository.deleteOverdated();
     }
 }
