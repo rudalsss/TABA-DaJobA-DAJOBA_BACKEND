@@ -3,7 +3,7 @@ package taba.dajoba.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import taba.dajoba.domain.DesireField;
+import taba.dajoba.domain.Field;
 import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.domain.User;
 import taba.dajoba.repository.SelfIntroRepository;
@@ -23,13 +23,13 @@ public class SelfIntroService {
      * 자소서
      */
     @Transactional
-    public SelfIntroduction selfIntro(String userId, String introName, String introContent, DesireField desireField) {
+    public SelfIntroduction selfIntro(String userId, String introName, String introContent, Field field) {
         List<User> users = userRepository.findByUserId(userId);
         User user = users.get(0);
         //자소서 이름 중복확인 후 처리
         String fixedIntroName = generateUniqueIntroName(userId, introName);
         //자소서 저장
-        SelfIntroduction selfIntroduction = SelfIntroduction.create(fixedIntroName, introContent, user, desireField);
+        SelfIntroduction selfIntroduction = SelfIntroduction.create(fixedIntroName, introContent, user, field);
         selfIntroRepository.save(selfIntroduction);
 
         return selfIntroduction;
@@ -54,7 +54,7 @@ public class SelfIntroService {
      * user의 자소서 하나 수정
      */
     @Transactional
-    public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, DesireField desireField) throws Exception {
+    public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, Field field) throws Exception {
         //selfIntro 조회
         SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
         if (selfIntroduction == null) {
@@ -63,7 +63,7 @@ public class SelfIntroService {
         //자소서 이름 중복확인 후 처리
         String fixedIntroName = generateUniqueIntroName(userId, introName);
         //자소서 업데이트
-        selfIntroduction.update(fixedIntroName, introContent, desireField);
+        selfIntroduction.update(fixedIntroName, introContent, field);
         return selfIntroduction;
     }
 

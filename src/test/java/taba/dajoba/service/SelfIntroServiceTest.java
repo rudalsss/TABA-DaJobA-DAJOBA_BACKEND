@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import taba.dajoba.controller.UserForm;
-import taba.dajoba.domain.DesireField;
+import taba.dajoba.domain.Field;
 import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.repository.SelfIntroRepository;
 import taba.dajoba.repository.UserRepository;
@@ -36,10 +36,10 @@ class SelfIntroServiceTest {
 
         String introName = "새로운 자기소개";
         String introContent = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        DesireField desireField = DesireField.BUSINESS;
+        Field field = Field.BUSINESS;
 
         //when
-        selfIntroService.selfIntro(userId, introName, introContent, desireField);
+        selfIntroService.selfIntro(userId, introName, introContent, field);
 
         //then
         List<SelfIntroduction> selfIntroductions = selfIntroRepository.showAll(userId);
@@ -48,7 +48,7 @@ class SelfIntroServiceTest {
         assertEquals(introName, selfIntroduction.getIntroName());
         assertEquals(introContent, selfIntroduction.getIntroContent());
         assertEquals(userId, selfIntroduction.getUser().getUserId());
-        assertEquals(desireField, selfIntroduction.getDesireField());
+        assertEquals(field, selfIntroduction.getField());
     }
 
     @Test
@@ -63,17 +63,17 @@ class SelfIntroServiceTest {
 
         String introName1 = "새로운 자기소개";
         String introContent1 = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        DesireField desireField1 = DesireField.BUSINESS;
+        Field field1 = Field.BUSINESS;
 
         String introName2 = "새로운 자기소개";
         String introContent2 = "안녕하세요, 저는 새로 가입한 사용자입니다.2222";
-        DesireField desireField2 = DesireField.BUSINESS;
+        Field field2 = Field.BUSINESS;
 
 
 
         //when
-        selfIntroService.selfIntro(userId, introName1, introContent1, desireField1);
-        selfIntroService.selfIntro(userId, introName2, introContent2, desireField2);
+        selfIntroService.selfIntro(userId, introName1, introContent1, field1);
+        selfIntroService.selfIntro(userId, introName2, introContent2, field2);
         selfIntroService.showIntroAll(userId);
 
         //then
@@ -84,11 +84,11 @@ class SelfIntroServiceTest {
         assertEquals(introName1, selfIntroduction1.getIntroName());
         assertEquals(introContent1, selfIntroduction1.getIntroContent());
         assertEquals(userId, selfIntroduction1.getUser().getUserId());
-        assertEquals(desireField1, selfIntroduction1.getDesireField());
+        assertEquals(field1, selfIntroduction1.getField());
         assertEquals(introName2, selfIntroduction2.getIntroName());
         assertEquals(introContent2, selfIntroduction2.getIntroContent());
         assertEquals(userId, selfIntroduction2.getUser().getUserId());
-        assertEquals(desireField2, selfIntroduction2.getDesireField());
+        assertEquals(field2, selfIntroduction2.getField());
     }
 
     @Test
@@ -103,15 +103,15 @@ class SelfIntroServiceTest {
 
         String introName1 = "새로운 자기소개";
         String introContent1 = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        DesireField desireField1 = DesireField.BUSINESS;
+        Field field1 = Field.BUSINESS;
 
         String introName2 = "새로운 자기소개";
         String introContent2 = "안녕하세요, 저는 새로 가입한 사용자입니다.2222";
-        DesireField desireField2 = DesireField.BUSINESS;
+        Field field2 = Field.BUSINESS;
 
         //when
-        selfIntroService.selfIntro(userId, introName1, introContent1, desireField1);
-        selfIntroService.selfIntro(userId, introName2, introContent2, desireField2);
+        selfIntroService.selfIntro(userId, introName1, introContent1, field1);
+        selfIntroService.selfIntro(userId, introName2, introContent2, field2);
         List<SelfIntroduction> selfIntroductions = selfIntroRepository.showAll(userId);
         Long id1 = selfIntroductions.get(0).getId();
         selfIntroService.removeSelfIntro(id1);
@@ -122,7 +122,7 @@ class SelfIntroServiceTest {
         assertEquals(introName2+" (1)", selfIntroduction.getIntroName());
         assertEquals(introContent2, selfIntroduction.getIntroContent());
         assertEquals(userId, selfIntroduction.getUser().getUserId());
-        assertEquals(desireField2, selfIntroduction.getDesireField());
+        assertEquals(field2, selfIntroduction.getField());
     }
 
     @Test
@@ -137,19 +137,19 @@ class SelfIntroServiceTest {
 
         String introName = "새로운 자기소개";
         String introContent = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        DesireField desireField = DesireField.BUSINESS;
-        SelfIntroduction selfIntro = selfIntroService.selfIntro(userId, introName, introContent, desireField);
+        Field field = Field.BUSINESS;
+        SelfIntroduction selfIntro = selfIntroService.selfIntro(userId, introName, introContent, field);
 
         //when
         String fixedName = "수정된 자기소개서";
         String fixedContent = "안녕하세요, 저는 자기소개서 수정입니다.";
-        DesireField fixedDF = DesireField.SERVICE;
+        Field fixedDF = Field.SERVICE;
         SelfIntroduction fixedIntro = selfIntroService.updateSelfIntro(userId, selfIntro.getId(),fixedName, fixedContent, fixedDF);
 
         //then
         assertEquals(fixedName, fixedIntro.getIntroName());
         assertEquals(fixedContent, fixedIntro.getIntroContent());
-        assertEquals(fixedDF, fixedIntro.getDesireField());
+        assertEquals(fixedDF, fixedIntro.getField());
     }
 
     @Test
@@ -164,17 +164,17 @@ class SelfIntroServiceTest {
 
         String introName1 = "새로운 자기소개";
         String introContent1 = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        DesireField desireField1 = DesireField.BUSINESS;
+        Field field1 = Field.BUSINESS;
 
         String introName2 = "새로운 자기소개";
         String introContent2 = "안녕하세요, 저는 새로 가입한 사용자입니다.2222";
-        DesireField desireField2 = DesireField.BUSINESS;
+        Field field2 = Field.BUSINESS;
 
 
 
         //when
-        selfIntroService.selfIntro(userId, introName1, introContent1, desireField1);
-        selfIntroService.selfIntro(userId, introName2, introContent2, desireField2);
+        selfIntroService.selfIntro(userId, introName1, introContent1, field1);
+        selfIntroService.selfIntro(userId, introName2, introContent2, field2);
         selfIntroService.showIntroAll(userId);
 
         //then

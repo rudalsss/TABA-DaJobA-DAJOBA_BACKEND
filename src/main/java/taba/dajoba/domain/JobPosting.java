@@ -6,6 +6,8 @@ import taba.dajoba.controller.JobPostingFilter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,6 +48,6 @@ public class JobPosting {
     private List<Match> matches;
 
     @Enumerated(EnumType.STRING)
-    private JobPostingGroup group;  // PERIODIC FREQUENT
+    private Field jobGroup;
 
 }
