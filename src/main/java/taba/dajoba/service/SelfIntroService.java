@@ -23,16 +23,20 @@ public class SelfIntroService {
      * 자소서
      */
     @Transactional
-    public void selfIntro(String userId, String introName, String introContent, DesireField desireField) {
+    public SelfIntroduction selfIntro(String userId, String introName, String introContent, DesireField desireField) {
         List<User> users = userRepository.findByUserId(userId);
         User user = users.get(0);
-        //String introName, String introContent, User user, DesireField desireField
-        SelfIntroduction selfIntroduction = SelfIntroduction.create(introName, introContent, user, desireField);
+        //자소서 이름 중복확인 후 처리
+        String fixedIntroName = generateUniqueIntroName(userId, introName);
+        //자소서 저장
+        SelfIntroduction selfIntroduction = SelfIntroduction.create(fixedIntroName, introContent, user, desireField);
         selfIntroRepository.save(selfIntroduction);
+
+        return selfIntroduction;
     }
 
     /**
-     * user 자소서 하나 조회
+     * 자소서 하나 조회
      */
     public SelfIntroduction showOne(Long introId) {
         return selfIntroRepository.findOne(introId);
@@ -50,22 +54,29 @@ public class SelfIntroService {
      * user의 자소서 하나 수정
      */
     @Transactional
-    public void updateSelfIntro(Long introId, String introName, String introContent, DesireField desireField){
+    public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, DesireField desireField) throws Exception {
         //selfIntro 조회
         SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
+        if (selfIntroduction == null) {
+            throw new Exception("자기소개서를 찾을 수 없습니다.");
+        }
+        //자소서 이름 중복확인 후 처리
+        String fixedIntroName = generateUniqueIntroName(userId, introName);
         //자소서 업데이트
-        selfIntroduction.update(introName, introContent, desireField);
+        selfIntroduction.update(fixedIntroName, introContent, desireField);
+        return selfIntroduction;
     }
 
     /**
      * user 자소서 하나 삭제
      */
     @Transactional
-    public void removeSelfIntro(Long introId){
+    public int removeSelfIntro(Long introId){
         //selfIntro 조회
         SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
         //자소서 삭제
         selfIntroRepository.delete(selfIntroduction);
+        return 1;
     }
 
     /**
@@ -79,5 +90,4 @@ public class SelfIntroService {
             return introName + " (" + existingIntros.size() + ")";
         }
     }
-
 }

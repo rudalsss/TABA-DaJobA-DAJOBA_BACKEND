@@ -30,4 +30,12 @@ public class JobPostingController {
         model.addAttribute("jobPostings", jobPostings);
         return "어떤 URL";
     }
+
+    //홈페이지에 정보 전달
+    @GetMapping("jobs/latest")
+    public String topFour(Model model) {
+        List<JobPosting> jobPostings = jobPostingService.topFourFrequent();
+        model.addAttribute("jobPostings", jobPostings);
+        return "어떤 URL";
+    }
 }

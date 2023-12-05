@@ -65,6 +65,4 @@ public class MatchController {
         return "매칭결과 페이지";
     }
 
-
-
 }

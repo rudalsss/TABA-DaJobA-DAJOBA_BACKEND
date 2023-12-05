@@ -42,27 +42,10 @@ public class JobPosting {
     @OneToOne(mappedBy = "jobPosting", fetch = FetchType.LAZY)
     private JobPostingDetail jobPostingDetail;
 
-    @OneToMany(mappedBy = "jobPosting", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "jobPosting")
     private List<Match> matches;
 
     @Enumerated(EnumType.STRING)
     private JobPostingGroup group;  // PERIODIC FREQUENT
-
-//    public JobPostingFilter postingToFilter(JobPosting jobPosting, JobPostingFilter jobPostingFilter){
-//        jobPostingFilter.setWorkingArea(this.workingArea);
-//        return jobPostingFilter;
-//    }
-
-    //테스트용
-    public JobPosting createJobPosting( String title, String workingArea ){
-        JobPosting jobPosting = new JobPosting();
-        jobPosting.title = title;
-        jobPosting.recruitDeadline = "0000";
-        jobPosting.workingArea = workingArea;
-        jobPosting.employmentType = new EmploymentType();
-        jobPosting.academicBackground = null;
-
-
-    }
 
 }
