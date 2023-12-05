@@ -6,7 +6,7 @@ import taba.dajoba.service.MatchService;
 
 @Controller
 @RequiredArgsConstructor
-public class MachController {
+public class MatchController {
 
     private final MatchService matchService;
 

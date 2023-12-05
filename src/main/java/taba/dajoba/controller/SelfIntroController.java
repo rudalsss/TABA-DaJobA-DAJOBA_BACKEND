@@ -3,10 +3,7 @@ package taba.dajoba.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.service.SelfIntroService;
 
@@ -36,8 +33,9 @@ public class SelfIntroController {
     @PostMapping("users/{userid}/self-intro/new")
     public String createSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid) {
 
-        selfIntroService.selfIntro(userid, form.getIntroName(), form.getIntroContent(), form.getDesireField());
-        return "어떤url";
+        SelfIntroduction selfIntroduction = selfIntroService.selfIntro(userid, form.getIntroName(), form.getIntroContent(), form.getDesireField());
+        Long id = selfIntroduction.getId();
+        return "users/{userid}/self-intro/"+id;
     }
 
     //자기소개서 상세 조회
@@ -49,9 +47,24 @@ public class SelfIntroController {
     }
 
     //자기소개서 수정
-    @PostMapping("users/{userid}/self-intro/{introid}")
+    @PostMapping("users/{userid}/self-intro/{introid}") @ResponseBody
     public String updateSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid, @PathVariable Long introid) {
-        selfIntroService.updateSelfIntro(introid, form.getIntroName(), form.getIntroContent(), form.getDesireField());
-        return "어떤url";
+        try {
+            //자기소개서 업데이트
+            selfIntroService.updateSelfIntro(userid, introid, form.getIntroName(), form.getIntroContent(), form.getDesireField());
+            return "success";
+        } catch (Exception e) {
+            return "fail" + e.getMessage();
+        }
+    }
+    //자기소개서 삭제
+    @DeleteMapping("users/{userid}/self-intro/{introid}") @ResponseBody
+    public String removeSelfIntro(@PathVariable Long introid){
+        int result = selfIntroService.removeSelfIntro(introid);
+        if(result != 1){
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 }

@@ -27,7 +27,7 @@ public class MatchRepository {
     }
 
 
-    //==특정 user의 자소서 전부 조회==//
+    //==특정 user의 자소서에 맞는 전부 조회==//
     public List<Match> showAll(Long selfIntroId) {
         JPAQueryFactory query = new JPAQueryFactory(em);
         QSelfIntroduction selfIntro = QSelfIntroduction.selfIntroduction;

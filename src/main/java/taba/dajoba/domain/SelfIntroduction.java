@@ -3,6 +3,7 @@ package taba.dajoba.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class SelfIntroduction {
     @Lob
     private String introContent;    //자기소개서 내용
 
+    @Column(columnDefinition = "DATE")
+    private LocalDate lastUpdated;  // 마지막으로 수정된 시각
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -42,6 +45,7 @@ public class SelfIntroduction {
         selfIntroduction.introContent = introContent;
         selfIntroduction.user = user;
         selfIntroduction.desireField = desireField;
+        selfIntroduction.lastUpdated = LocalDate.now();  // 생성 시점의 날짜로 초기화
         return selfIntroduction;
     }
 
@@ -50,10 +54,9 @@ public class SelfIntroduction {
         this.introName = introName;
         this.introContent = introContent;
         this.desireField = desireField;
+        this.lastUpdated = LocalDate.now();  // 수정 시점의 날짜로 업데이트
     }
 
     //==조회 메서드==//
     //repository에 작성
-
-
 }

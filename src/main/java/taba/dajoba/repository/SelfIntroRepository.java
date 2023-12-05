@@ -3,6 +3,7 @@ package taba.dajoba.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import taba.dajoba.domain.DesireField;
 import taba.dajoba.domain.QSelfIntroduction;
 import taba.dajoba.domain.QUser;
 import taba.dajoba.domain.SelfIntroduction;
@@ -53,4 +54,10 @@ public class SelfIntroRepository {
                 .where(user.userId.eq(userId), selfIntro.introName.eq(introName))
                 .fetch();
     }
+
+    /*//==자소서 수정==//
+    public Long selfIntroUpdate(String fixedIntroName, String introContent, DesireField desireField) {
+        SelfIntroduction selfIntro;
+        selfIntro.update(fixedIntroName, introContent, desireField);
+    }*/
 }
