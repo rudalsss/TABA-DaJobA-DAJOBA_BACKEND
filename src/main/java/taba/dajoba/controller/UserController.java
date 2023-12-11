@@ -21,10 +21,8 @@ public class UserController {
      */
     @PostMapping("/signup")
     public User signUp(@ModelAttribute UserForm userForm){
-        String userId = userService.join(userForm);
-        List<User> users = userRepository.findByUserId(userId);
-        User user = users.get(0);
-        return user;
+        Long id = userService.join(userForm);
+        return userRepository.findOne(id);
     }
 
     /**

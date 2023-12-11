@@ -84,11 +84,11 @@ class SelfIntroServiceTest {
         assertEquals(introName1, selfIntroduction1.getIntroName());
         assertEquals(introContent1, selfIntroduction1.getIntroContent());
         assertEquals(userId, selfIntroduction1.getUser().getUserId());
-        assertEquals(field1, selfIntroduction1.getField());
+        assertEquals(field1, selfIntroduction1.getDesireField());
         assertEquals(introName2, selfIntroduction2.getIntroName());
         assertEquals(introContent2, selfIntroduction2.getIntroContent());
         assertEquals(userId, selfIntroduction2.getUser().getUserId());
-        assertEquals(field2, selfIntroduction2.getField());
+        assertEquals(field2, selfIntroduction2.getDesireField());
     }
 
     @Test
@@ -122,7 +122,7 @@ class SelfIntroServiceTest {
         assertEquals(introName2+" (1)", selfIntroduction.getIntroName());
         assertEquals(introContent2, selfIntroduction.getIntroContent());
         assertEquals(userId, selfIntroduction.getUser().getUserId());
-        assertEquals(field2, selfIntroduction.getField());
+        assertEquals(field2, selfIntroduction.getDesireField());
     }
 
     @Test
@@ -149,7 +149,7 @@ class SelfIntroServiceTest {
         //then
         assertEquals(fixedName, fixedIntro.getIntroName());
         assertEquals(fixedContent, fixedIntro.getIntroContent());
-        assertEquals(fixedDF, fixedIntro.getField());
+        assertEquals(fixedDF, fixedIntro.getDesireField());
     }
 
     @Test
