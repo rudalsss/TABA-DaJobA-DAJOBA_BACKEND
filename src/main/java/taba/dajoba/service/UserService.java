@@ -23,14 +23,14 @@ public class UserService {
      * 회원가입 기능
      */
     @Transactional
-    public Long join(UserForm userForm) {
+    public String join(UserForm userForm) {
         //중복회원검사
         validateDuplicateMember(userForm);
         //dto->entity변환
         User userEntity = User.toUserEntity(userForm);
         //저장작업
         userRepository.save(userEntity);
-        return userEntity.getId();
+        return userEntity.getUserId();
     }
 
     private void validateDuplicateMember(UserForm userForm) {

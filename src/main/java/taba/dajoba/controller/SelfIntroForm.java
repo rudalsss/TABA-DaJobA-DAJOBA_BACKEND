@@ -1,16 +1,12 @@
 package taba.dajoba.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import taba.dajoba.domain.Field;
 
 import java.time.LocalDate;
 
 @Getter @Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class SelfIntroForm {
 
     private String introName;

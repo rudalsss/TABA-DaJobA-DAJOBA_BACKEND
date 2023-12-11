@@ -1,57 +1,45 @@
 package taba.dajoba.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import taba.dajoba.domain.User;
+import taba.dajoba.repository.UserRepository;
 import taba.dajoba.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    /**
-     * 회원가입회면 이동
-     */
-    @GetMapping("/signup")
-    public String signUpPage(){
-        return "/user/signup";
-    }
+    private final UserRepository userRepository;
 
     /**
      * 회원가입처리
      */
     @PostMapping("/signup")
-    public String signUp(@ModelAttribute UserForm userForm){
-        userService.join(userForm);
-        return "/user/login";
-    }
-
-    /**
-     * 로그인화면 이동
-     */
-    @GetMapping("/login")
-    public String loginPage(){
-        return "/user/login";
+    public User signUp(@ModelAttribute UserForm userForm){
+        String userId = userService.join(userForm);
+        List<User> users = userRepository.findByUserId(userId);
+        User user = users.get(0);
+        return user;
     }
 
     /**
      * 로그인처리
      */
     @PostMapping("/login")
-    public String login(@ModelAttribute UserForm userForm, HttpSession session){
+    public User login(@ModelAttribute UserForm userForm, HttpSession session){
         UserForm loginResult = userService.login(userForm);
         if(loginResult != null ){
             //로그인 성공
             session.setAttribute("loginUser", loginResult.getUserId());
-            return "main";
+            List<User> users = userRepository.findByUserId(loginResult.getUserId());
+            return users.get(0);
         } else {
-            return "/user/login";
+            return null;
         }
     }
 
@@ -61,9 +49,6 @@ public class UserController {
     @PostMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "main";
+        return "Logged out";
     }
-
-
-
 }
