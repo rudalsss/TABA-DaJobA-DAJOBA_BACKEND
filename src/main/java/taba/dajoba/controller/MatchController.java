@@ -1,30 +1,29 @@
 package taba.dajoba.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import taba.dajoba.domain.Match;
 import taba.dajoba.service.MatchService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class MatchController {
 
     private final MatchService matchService;
 
     @GetMapping("users/{userid}/match/{introid}")
-    public String loadMatches( @PathVariable Long introid, Model model ){
+    public Map<String, Object> loadMatches( @PathVariable Long introid ){
         List<Match> matches = matchService.findMatches(introid);
+        Map<String, Object> response = new HashMap<>();
         if( matches != null ){
-            model.addAttribute("matchLists", matches);
+            response.put("matchLists", matches);
         } else {
-            model.addAttribute("loading", "자소서를 분석중입니다..." );
+            response.put("loading", "자소서를 분석중입니다...");
         }
-        return "매칭page";
+        return response;
     }
-
 }

@@ -32,8 +32,8 @@ public class SelfIntroduction {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Enumerated(EnumType.STRING)
-    private Field field;    //희망분야-DesireField 참고
+    @Enumerated(EnumType.ORDINAL)
+    private Field desireField;    //희망분야-DesireField 참고
 
     @OneToMany(mappedBy = "selfIntroduction")
     private List<Match> matches = new ArrayList<>();
@@ -46,7 +46,7 @@ public class SelfIntroduction {
         selfIntroduction.introName = introName;
         selfIntroduction.introContent = introContent;
         selfIntroduction.user = user;
-        selfIntroduction.field = field;
+        selfIntroduction.desireField = field;
         selfIntroduction.lastUpdated = LocalDate.now();  // 생성 시점의 날짜로 초기화
         return selfIntroduction;
     }
@@ -55,7 +55,7 @@ public class SelfIntroduction {
     public void update(String introName, String introContent, Field field) {
         this.introName = introName;
         this.introContent = introContent;
-        this.field = field;
+        this.desireField = field;
         this.lastUpdated = LocalDate.now();  // 수정 시점의 날짜로 업데이트
         this.signal = 0;
     }

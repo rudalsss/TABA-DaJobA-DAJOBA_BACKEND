@@ -47,6 +47,7 @@ public class JobPostingRepository {
         return query
                 .select(jobPosting)
                 .from(jobPosting)
+                .orderBy(jobPosting.id.desc())
                 .fetch();
     }
 
@@ -58,6 +59,7 @@ public class JobPostingRepository {
                 .select(jobPosting)
                 .from(jobPosting)
                 .limit(4)
+                .orderBy(jobPosting.id.desc())
                 .fetch();
     }
 }

@@ -1,13 +1,9 @@
 package taba.dajoba.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import taba.dajoba.controller.JobPostingFilter;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,29 +26,29 @@ public class JobPosting {
 
     private String jobPostingUrl;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private Field jobGroup;
 
-    @Enumerated(EnumType.STRING)
-    private AcademicBackgroundGroup academicBackground;
-
+    @Lob
     private String groupIntro;
 
+    @Lob
     private String mainduties;
 
+    @Lob
     private String qualification;
 
+    @Lob
     private String preferential;
 
+    @Lob
     private String benefits;
 
-    private String titleIMG;
+    private String titleImg;
 
-    private String logoIMG;
+    private String logoImg;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company;
+    private String company;
 
     @OneToMany(mappedBy = "jobPosting")
     private List<Match> matches;

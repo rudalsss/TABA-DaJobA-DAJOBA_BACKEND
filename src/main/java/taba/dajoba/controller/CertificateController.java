@@ -1,49 +1,35 @@
 package taba.dajoba.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import taba.dajoba.domain.Certificate;
 import taba.dajoba.domain.User;
 import taba.dajoba.service.CertificateService;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class CertificateController {
 
     private final CertificateService certificateService;
 
-    //등록가능한 자격증 정보 전달 -> DB에 수동저장된 데이터
+    // 등록 가능한 자격증 정보 제공 -> DB에 수동 저장된 데이터
     @GetMapping("users/skill")
-    @ResponseBody
     public List<Certificate> loadAllCertificate(){
-        List<Certificate> allSkills = certificateService.findAllSkills();
-        return allSkills;
+        return certificateService.findAllSkills();
     }
 
-    //유저 자격정보 조회
+    // 사용자 자격 정보 조회
     @GetMapping("users/{userid}/skill")
-    @ResponseBody
     public List<Certificate> loadUserCertificate(@PathVariable String userid){
-        List<Certificate> userSkills = certificateService.findUserSkills(userid);
-        return userSkills;
+        return certificateService.findUserSkills(userid);
     }
 
-    //유저 자격정보 등록 및 수정
+    // 사용자 자격 정보 등록 및 수정
     @PostMapping("users/{userid}/skill")
-    @ResponseBody
     public String updateUserCertificate( @PathVariable String userid , List<String> certificateName  ){
         User user = certificateService.updateSkills( userid, certificateName );
-        if(user != null){
-            return "SUCCESS";
-        } else {
-            return "FAIL";
-        }
+        return (user != null) ? "SUCCESS" : "FAIL";
     }
-
 }
