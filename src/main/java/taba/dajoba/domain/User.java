@@ -43,11 +43,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AcademicBackgroundGroup academicBackground;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserSkill> userSkills = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();
 
 

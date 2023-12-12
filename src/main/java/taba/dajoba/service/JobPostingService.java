@@ -1,6 +1,8 @@
 package taba.dajoba.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import taba.dajoba.domain.JobPosting;
@@ -27,8 +29,12 @@ public class JobPostingService {
     /**
      * 채용 조회
      */
-    public List<JobPosting> showAllFrequent() {
-        return jobPostingRepository.showAllFrequent();
+//    public List<JobPosting> showAllFrequent() {
+//        return jobPostingRepository.showAllFrequent();
+//    }
+    //채용 공고 전달 - 페이징 추가
+    public Page<JobPosting> showAllJobPostings(Pageable pageable) {
+        return jobPostingRepository.showAllJobPostings(pageable);
     }
 
     /**

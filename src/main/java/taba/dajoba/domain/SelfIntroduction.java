@@ -34,7 +34,7 @@ public class SelfIntroduction {
 
     private int desireField;    //희망분야
 
-    @OneToMany(mappedBy = "selfIntroduction")
+    @OneToMany(mappedBy = "selfIntroduction", cascade = CascadeType.REMOVE)
     private List<Match> matches = new ArrayList<>();
 
     private int signal = 1;

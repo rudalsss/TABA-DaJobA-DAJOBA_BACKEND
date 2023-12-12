@@ -1,8 +1,11 @@
 package taba.dajoba.repository;
 
-import com.querydsl.core.Tuple;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import taba.dajoba.domain.*;
 
@@ -41,15 +44,28 @@ public class JobPostingRepository {
 
 
     //모든 채용 공고 조회==//
-    public List<JobPosting> showAllFrequent() {
+//    public List<JobPosting> showAllFrequent() {
+//        JPAQueryFactory query = new JPAQueryFactory(em);
+//        QJobPosting jobPosting = QJobPosting.jobPosting;
+//        return query
+//                .select(jobPosting)
+//                .from(jobPosting)
+//                .limit(100)
+////                .where(jobPosting.jobGroup.eq(field))
+//                .orderBy(jobPosting.id.desc())
+//                .fetch();
+//    }
+    public Page<JobPosting> showAllJobPostings(Pageable pageable) {
         JPAQueryFactory query = new JPAQueryFactory(em);
         QJobPosting jobPosting = QJobPosting.jobPosting;
-        return query
+        JPAQuery<JobPosting> querys = query
                 .select(jobPosting)
                 .from(jobPosting)
-                .orderBy(jobPosting.id.desc())
-                .fetch();
+                .orderBy(jobPosting.id.desc());
+
+        return PageableExecutionUtils.getPage(querys.fetch(), pageable, querys::fetchCount);
     }
+
 
     //채용 공고 4개 뽑아내기
     public List<JobPosting> topFourFrequent() {
@@ -62,4 +78,5 @@ public class JobPostingRepository {
                 .orderBy(jobPosting.id.desc())
                 .fetch();
     }
+
 }
