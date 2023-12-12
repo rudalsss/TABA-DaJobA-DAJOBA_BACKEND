@@ -1,6 +1,7 @@
 package taba.dajoba.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import taba.dajoba.domain.Field;
@@ -88,6 +89,18 @@ public class SelfIntroService {
             return introName;
         } else {
             return introName + " (" + existingIntros.size() + ")";
+        }
+    }
+
+    /**
+     * 자소서 자동 업데이트
+     */
+
+    @Transactional
+    public void dailyUpdate() {
+        List<SelfIntroduction> all = selfIntroRepository.findAll();
+        for( SelfIntroduction s : all ){
+            s.updateSignal();
         }
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import taba.dajoba.domain.QSelfIntroduction;
 import taba.dajoba.domain.QUser;
 import taba.dajoba.domain.SelfIntroduction;
+import taba.dajoba.domain.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -59,4 +60,9 @@ public class SelfIntroRepository {
         SelfIntroduction selfIntro;
         selfIntro.update(fixedIntroName, introContent, desireField);
     }*/
+
+    public List<SelfIntroduction> findAll(){
+        return em.createQuery("select s from SelfIntroduction s", SelfIntroduction.class)
+                .getResultList();
+    }
 }
