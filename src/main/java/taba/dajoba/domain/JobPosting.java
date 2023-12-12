@@ -26,8 +26,7 @@ public class JobPosting {
 
     private String jobPostingUrl;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Field jobGroup;
+    private int jobGroup;
 
     @Lob
     private String groupIntro;

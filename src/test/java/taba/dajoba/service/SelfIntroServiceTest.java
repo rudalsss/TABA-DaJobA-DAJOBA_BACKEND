@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import taba.dajoba.controller.UserForm;
-import taba.dajoba.domain.Field;
 import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.repository.SelfIntroRepository;
 import taba.dajoba.repository.UserRepository;

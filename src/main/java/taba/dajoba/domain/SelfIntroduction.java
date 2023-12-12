@@ -32,8 +32,7 @@ public class SelfIntroduction {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Enumerated(EnumType.ORDINAL)
-    private Field desireField;    //희망분야-DesireField 참고
+    private int desireField;    //희망분야
 
     @OneToMany(mappedBy = "selfIntroduction")
     private List<Match> matches = new ArrayList<>();
@@ -41,7 +40,7 @@ public class SelfIntroduction {
     private int signal = 1;
 
     //==생성 메서드==//
-    public static SelfIntroduction create(String introName, String introContent, User user, Field field) {
+    public static SelfIntroduction create(String introName, String introContent, User user, int field) {
         SelfIntroduction selfIntroduction = new SelfIntroduction();
         selfIntroduction.introName = introName;
         selfIntroduction.introContent = introContent;
@@ -52,7 +51,7 @@ public class SelfIntroduction {
     }
 
     //==수정 메서드==//
-    public void update(String introName, String introContent, Field field) {
+    public void update(String introName, String introContent, int field) {
         this.introName = introName;
         this.introContent = introContent;
         this.desireField = field;
