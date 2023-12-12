@@ -66,4 +66,5 @@ public class SelfIntroduction {
     public void updateSignal(){
         this.signal = 1;
     }
+
 }

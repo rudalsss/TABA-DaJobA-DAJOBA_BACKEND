@@ -64,6 +64,7 @@ public class SelfIntroService {
         String fixedIntroName = generateUniqueIntroName(userId, introName);
         //자소서 업데이트
         selfIntroduction.update(fixedIntroName, introContent, field);
+        selfIntroduction.updateSignal();
         return selfIntroduction;
     }
 
@@ -91,15 +92,4 @@ public class SelfIntroService {
         }
     }
 
-    /**
-     * 자소서 자동 업데이트
-     */
-
-    @Transactional
-    public void dailyUpdate() {
-        List<SelfIntroduction> all = selfIntroRepository.findAll();
-        for( SelfIntroduction s : all ){
-            s.updateSignal();
-        }
-    }
 }
