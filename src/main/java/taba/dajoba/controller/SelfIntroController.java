@@ -16,38 +16,25 @@ public class SelfIntroController {
     private final SelfIntroService selfIntroService;
 
     //자기소개서 목록페이지로 이동
-    @GetMapping("users/{userid}/self-intro")
-    public String moveUserSelfIntro(@PathVariable String userid, Model model){
-        List<SelfIntroduction> selfIntroductions = selfIntroService.showIntroAll(userid);
-        model.addAttribute("selfIntroductions", selfIntroductions);
-        return "꾸밀페이지";
-    }
-
-    //자기소개서 작성 페이지로 이동
-    @GetMapping("users/{userid}/self-intro/new")
-    public String createSelfIntroForm(@ModelAttribute("selfIntroForm") SelfIntroForm selfIntroForm){
-        return "어떤 url 넣을지 모르겠음";
+    @GetMapping("users/{userid}/self-intro/list")
+    public List<SelfIntroduction> moveUserSelfIntro(@PathVariable String userid){
+        return selfIntroService.showIntroAll(userid);
     }
 
     //자기소개서 작성
-    @PostMapping("users/{userid}/self-intro/new")
-    public String createSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid) {
-
-        SelfIntroduction selfIntroduction = selfIntroService.selfIntro(userid, form.getIntroName(), form.getIntroContent(), form.getField());
-        Long id = selfIntroduction.getId();
-        return "users/{userid}/self-intro/"+id;
+    @PostMapping("users/{userid}/self-intro")
+    public SelfIntroduction createSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid) {
+        return selfIntroService.selfIntro(userid, form.getIntroName(), form.getIntroContent(), form.getField());
     }
 
     //자기소개서 상세 조회
     @GetMapping("users/{userid}/self-intro/{introid}")
-    public String showSelfIntroDetail(@PathVariable String userid, @PathVariable Long introid, Model model){
-        SelfIntroduction selfIntroduction = selfIntroService.showOne(introid);
-        model.addAttribute("selfIntroduction", selfIntroduction);
-        return "어떤 URL";
+    public SelfIntroduction showSelfIntroDetail(@PathVariable String userid, @PathVariable Long introid){
+        return selfIntroService.showOne(introid);
     }
 
     //자기소개서 수정
-    @PostMapping("users/{userid}/self-intro/{introid}") @ResponseBody
+    @PostMapping("users/{userid}/self-intro/{introid}")
     public String updateSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid, @PathVariable Long introid) {
         try {
             //자기소개서 업데이트
