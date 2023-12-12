@@ -3,8 +3,10 @@ package taba.dajoba.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import taba.dajoba.domain.Match;
 import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.domain.User;
+import taba.dajoba.repository.MatchRepository;
 import taba.dajoba.repository.SelfIntroRepository;
 import taba.dajoba.repository.UserRepository;
 
@@ -17,6 +19,7 @@ public class SelfIntroService {
 
     private final SelfIntroRepository selfIntroRepository;
     private final UserRepository userRepository;
+    private final MatchRepository matchRepository;
 
     /**
      * 자소서
@@ -52,6 +55,21 @@ public class SelfIntroService {
     /**
      * user의 자소서 하나 수정
      */
+//    @Transactional
+//    public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, int field) throws Exception {
+//        //selfIntro 조회
+//        SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
+//        if (selfIntroduction == null) {
+//            throw new Exception("자기소개서를 찾을 수 없습니다.");
+//        }
+//        //자소서 이름 중복확인 후 처리
+//        String fixedIntroName = generateUniqueIntroName(userId, introName);
+//        //자소서 업데이트
+//        selfIntroduction.update(fixedIntroName, introContent, field);
+//        //자소서 내용이나 fild 바뀌면 연관된 매칭결과 삭제
+//        matchRepository.deleteAllRelatedIntroId(introId);
+//        return selfIntroduction;
+//    }
     @Transactional
     public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, int field) throws Exception {
         //selfIntro 조회
@@ -62,7 +80,11 @@ public class SelfIntroService {
         //자소서 이름 중복확인 후 처리
         String fixedIntroName = generateUniqueIntroName(userId, introName);
         //자소서 업데이트
-        selfIntroduction.update(fixedIntroName, introContent, field);
+        boolean isChanged = selfIntroduction.update(fixedIntroName, introContent, field);
+        if (isChanged) {
+            //해당 자소서 연관된 매칭결과 삭제
+            matchRepository.deleteAllRelatedIntroId(introId);
+        }
         return selfIntroduction;
     }
 

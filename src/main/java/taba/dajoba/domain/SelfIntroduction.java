@@ -1,6 +1,7 @@
 package taba.dajoba.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,7 +38,8 @@ public class SelfIntroduction {
     @OneToMany(mappedBy = "selfIntroduction", cascade = CascadeType.REMOVE)
     private List<Match> matches = new ArrayList<>();
 
-    private int signal = 1;
+    @Column(columnDefinition = "integer default 1")
+    private int signal;
 
     //==생성 메서드==//
     public static SelfIntroduction create(String introName, String introContent, User user, int field) {
@@ -51,12 +53,15 @@ public class SelfIntroduction {
     }
 
     //==수정 메서드==//
-    public void update(String introName, String introContent, int field) {
+    public boolean update(String introName, String introContent, int field) {
+        boolean isContentChanged = !this.introContent.equals(introContent);
+        boolean isFieldChanged = this.desireField != field;
         this.introName = introName;
         this.introContent = introContent;
         this.desireField = field;
         this.lastUpdated = LocalDate.now();  // 수정 시점의 날짜로 업데이트
         this.signal = 0;
+        return isContentChanged || isFieldChanged;
     }
 
     //==조회 메서드==//

@@ -42,4 +42,12 @@ public class MatchRepository {
     }
 
 
+    public void deleteAllRelatedIntroId(Long selfIntroId) {
+        JPAQueryFactory query = new JPAQueryFactory(em);
+        QSelfIntroduction selfIntro = QSelfIntroduction.selfIntroduction;
+        QMatch match = QMatch.match;
+        query.delete(match)
+                .where(match.selfIntroduction.id.eq(selfIntroId))
+                .execute();
+    }
 }

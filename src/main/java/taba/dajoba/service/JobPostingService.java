@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import taba.dajoba.controller.JobPostingForm;
 import taba.dajoba.domain.JobPosting;
 import taba.dajoba.domain.QJobPosting;
 import taba.dajoba.domain.SelfIntroduction;
@@ -29,18 +30,23 @@ public class JobPostingService {
     /**
      * 채용 조회
      */
-//    public List<JobPosting> showAllFrequent() {
-//        return jobPostingRepository.showAllFrequent();
+    //==전체 채용 공고 전달==//
+//    public Page<JobPosting> showAllJobPostings(Pageable pageable) {
+//        return jobPostingRepository.showAllJobPostings(pageable);
 //    }
-    //채용 공고 전달 - 페이징 추가
-    public Page<JobPosting> showAllJobPostings(Pageable pageable) {
+    public Page<JobPostingForm> showAllJobPostings(Pageable pageable) {
         return jobPostingRepository.showAllJobPostings(pageable);
+    }
+
+    //==직군별 채용 공고 전달==//
+    public Page<JobPostingForm> showSpecificJobPostings(int field, Pageable pageable) {
+        return jobPostingRepository.showSpecificJobPostings(field, pageable);
     }
 
     /**
      * 채용공고 4개 조회
      */
-    public List<JobPosting> topFourFrequent() {
+    public List<JobPostingForm> topFourFrequent() {
         return jobPostingRepository.topFourFrequent();
     }
 

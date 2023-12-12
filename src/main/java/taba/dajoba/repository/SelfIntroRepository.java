@@ -54,9 +54,4 @@ public class SelfIntroRepository {
                 .fetch();
     }
 
-    /*//==자소서 수정==//
-    public Long selfIntroUpdate(String fixedIntroName, String introContent, DesireField desireField) {
-        SelfIntroduction selfIntro;
-        selfIntro.update(fixedIntroName, introContent, desireField);
-    }*/
 }

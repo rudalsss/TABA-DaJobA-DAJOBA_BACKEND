@@ -16,28 +16,33 @@ public class JobPostingController {
 
     private final JobPostingService jobPostingService;
 
-    // 채용 공고 전달
-//    @GetMapping("jobs")
-//    public List<JobPosting> showFrequent(){
-//        return jobPostingService.showAllFrequent();
-//    }
-    //채용 공고 전달 - 페이징 적용
+    //전체 채용 공고 전달
     @GetMapping("jobs")
-    public Page<JobPosting> showAllJobPostings(
-            @RequestParam(defaultValue = "0") int page) {
-        int size = 40; // 페이지당 보여질 항목 수
+    public Page<JobPostingForm> showAllJobPostings(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return jobPostingService.showAllJobPostings(pageable);
     }
 
+    //직군별 채용 공고 전달
+    @GetMapping("jobs/{jobGroup}")
+    public Page<JobPostingForm> showSpecificJobPostings(//@ModelAttribute("jobPostingForm") JobPostingForm form,
+            @PathVariable int jobGroup,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return jobPostingService.showSpecificJobPostings(jobGroup, pageable);
+    }
+
     // 홈페이지에 정보 전달
     @GetMapping("jobs/latest")
-    public List<JobPosting> topFour() {
+    public List<JobPostingForm> topFour() {
         return jobPostingService.topFourFrequent();
     }
 
     //채용 상세정보 전달
-    @GetMapping("jobs/{jobid}")
+    @GetMapping("jobs/detail/{jobid}")
     public JobPosting showJobPosting(@PathVariable long jobid){
         return jobPostingService.findOne(jobid);
     }
