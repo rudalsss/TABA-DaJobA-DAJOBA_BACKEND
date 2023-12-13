@@ -38,7 +38,7 @@ public class SelfIntroduction {
     @OneToMany(mappedBy = "selfIntroduction", cascade = CascadeType.REMOVE)
     private List<Match> matches = new ArrayList<>();
 
-    @Column(columnDefinition = "integer default 1")
+    @Column(columnDefinition = "number default 1")
     private int signal;
 
     //==생성 메서드==//
@@ -60,8 +60,10 @@ public class SelfIntroduction {
         this.introContent = introContent;
         this.desireField = field;
         this.lastUpdated = LocalDate.now();  // 수정 시점의 날짜로 업데이트
-        this.signal = 0;
         return isContentChanged || isFieldChanged;
+    }
+    public void signalUpdate() {
+        this.signal = 1;
     }
 
     //==조회 메서드==//

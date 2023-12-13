@@ -84,6 +84,8 @@ public class SelfIntroService {
         if (isChanged) {
             //해당 자소서 연관된 매칭결과 삭제
             matchRepository.deleteAllRelatedIntroId(introId);
+            //signal 값 1로 변경
+            selfIntroduction.signalUpdate();
         }
         return selfIntroduction;
     }
