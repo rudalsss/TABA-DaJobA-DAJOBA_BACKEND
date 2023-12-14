@@ -47,7 +47,7 @@ public class User {
     private List<UserSkill> userSkills = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();
 
 

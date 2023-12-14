@@ -1,7 +1,8 @@
 package taba.dajoba.domain;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
+import taba.dajoba.controller.SelfIntroForm;
+import taba.dajoba.service.SelfIntroService;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -41,24 +42,25 @@ public class SelfIntroduction {
     @Column(columnDefinition = "number default 1")
     private int signal;
 
-    //==생성 메서드==//
-    public static SelfIntroduction create(String introName, String introContent, User user, int field) {
+    //SelfIntroduction From을 selfIntroduction entity로 변환 메서드
+    public static SelfIntroduction toSelfIntroductionEntity (SelfIntroForm selfIntroForm){
         SelfIntroduction selfIntroduction = new SelfIntroduction();
-        selfIntroduction.introName = introName;
-        selfIntroduction.introContent = introContent;
-        selfIntroduction.user = user;
-        selfIntroduction.desireField = field;
+        selfIntroduction.introName = selfIntroForm.getIntroName();
+        selfIntroduction.introContent = selfIntroForm.getIntroContent();
+        selfIntroduction.user = selfIntroForm.getUser();
+        selfIntroduction.desireField = selfIntroForm.getDesireField();
         selfIntroduction.lastUpdated = LocalDate.now();  // 생성 시점의 날짜로 초기화
+        selfIntroduction.signal = 1;
         return selfIntroduction;
     }
 
     //==수정 메서드==//
-    public boolean update(String introName, String introContent, int field) {
-        boolean isContentChanged = !this.introContent.equals(introContent);
-        boolean isFieldChanged = this.desireField != field;
-        this.introName = introName;
-        this.introContent = introContent;
-        this.desireField = field;
+    public boolean update(SelfIntroForm selfIntroForm) {
+        boolean isContentChanged = !this.introContent.equals(selfIntroForm.getIntroContent());
+        boolean isFieldChanged = this.desireField != selfIntroForm.getDesireField();
+        this.introName = selfIntroForm.getIntroName();
+        this.introContent = selfIntroForm.getIntroContent();
+        this.desireField = selfIntroForm.getDesireField();
         this.lastUpdated = LocalDate.now();  // 수정 시점의 날짜로 업데이트
         return isContentChanged || isFieldChanged;
     }

@@ -1,19 +1,15 @@
 package taba.dajoba.controller;
 
-import lombok.*;
-import taba.dajoba.domain.User;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor
-public class SelfIntroForm {
-
+public class SelfIntroMinForm {
     private Long introId;
     private String introName;
-    private String introContent;
-    private User user;
     private LocalDate lastUpdated;
-    private int desireField;
-
 }

@@ -1,9 +1,12 @@
 package taba.dajoba.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import taba.dajoba.domain.Match;
+import taba.dajoba.controller.SelfIntroForm;
+import taba.dajoba.controller.SelfIntroMinForm;
 import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.domain.User;
 import taba.dajoba.repository.MatchRepository;
@@ -25,16 +28,16 @@ public class SelfIntroService {
      * 자소서
      */
     @Transactional
-    public SelfIntroduction selfIntro(String userId, String introName, String introContent, int field) {
+    public Long selfIntro(String userId, SelfIntroForm selfIntroForm) {
         List<User> users = userRepository.findByUserId(userId);
         User user = users.get(0);
+        selfIntroForm.setUser(user);
         //자소서 이름 중복확인 후 처리
-        String fixedIntroName = generateUniqueIntroName(userId, introName);
+        selfIntroForm = generateUniqueIntroName(userId, selfIntroForm);
         //자소서 저장
-        SelfIntroduction selfIntroduction = SelfIntroduction.create(fixedIntroName, introContent, user, field);
+        SelfIntroduction selfIntroduction = SelfIntroduction.toSelfIntroductionEntity(selfIntroForm);
         selfIntroRepository.save(selfIntroduction);
-
-        return selfIntroduction;
+        return selfIntroduction.getId();
     }
 
     /**
@@ -48,46 +51,31 @@ public class SelfIntroService {
      * user의 자소서 모두 조회
      * 사용법 : String userId = session.getAttribute(loginUser)
      */
-    public List<SelfIntroduction> showIntroAll(String userId) {
-        return selfIntroRepository.showAll(userId);
+    public Page<SelfIntroMinForm> showAllUserSelfIntro(String userId, Pageable pageable){
+        return selfIntroRepository.showAllUserSelfIntro(userId, pageable);
     }
 
     /**
      * user의 자소서 하나 수정
      */
-//    @Transactional
-//    public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, int field) throws Exception {
-//        //selfIntro 조회
-//        SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
-//        if (selfIntroduction == null) {
-//            throw new Exception("자기소개서를 찾을 수 없습니다.");
-//        }
-//        //자소서 이름 중복확인 후 처리
-//        String fixedIntroName = generateUniqueIntroName(userId, introName);
-//        //자소서 업데이트
-//        selfIntroduction.update(fixedIntroName, introContent, field);
-//        //자소서 내용이나 fild 바뀌면 연관된 매칭결과 삭제
-//        matchRepository.deleteAllRelatedIntroId(introId);
-//        return selfIntroduction;
-//    }
     @Transactional
-    public SelfIntroduction updateSelfIntro(String userId, Long introId, String introName, String introContent, int field) throws Exception {
+    public Long updateSelfIntro(String userId, Long introId, SelfIntroForm selfIntroForm) throws Exception {
         //selfIntro 조회
         SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
         if (selfIntroduction == null) {
             throw new Exception("자기소개서를 찾을 수 없습니다.");
         }
         //자소서 이름 중복확인 후 처리
-        String fixedIntroName = generateUniqueIntroName(userId, introName);
+        selfIntroForm = generateUniqueIntroName(userId, selfIntroForm);
         //자소서 업데이트
-        boolean isChanged = selfIntroduction.update(fixedIntroName, introContent, field);
+        boolean isChanged = selfIntroduction.update(selfIntroForm);
         if (isChanged) {
             //해당 자소서 연관된 매칭결과 삭제
             matchRepository.deleteAllRelatedIntroId(introId);
             //signal 값 1로 변경
             selfIntroduction.signalUpdate();
         }
-        return selfIntroduction;
+        return selfIntroduction.getId();
     }
 
     /**
@@ -105,12 +93,12 @@ public class SelfIntroService {
     /**
      * IntroName 중복 확인
      */
-    public String generateUniqueIntroName(String userId, String introName) {
-        List<SelfIntroduction> existingIntros = selfIntroRepository.findByName(userId, introName);
-        if (existingIntros.isEmpty()) {
-            return introName;
-        } else {
-            return introName + " (" + existingIntros.size() + ")";
+    public SelfIntroForm generateUniqueIntroName(String userId, SelfIntroForm form) {
+        List<SelfIntroduction> existingIntros = selfIntroRepository.findByName(userId, form.getIntroName());
+        if (!existingIntros.isEmpty()) {
+            form.setIntroName(form.getIntroName() + " (" + existingIntros.size() + ")");
         }
+        return form;
     }
+
 }
