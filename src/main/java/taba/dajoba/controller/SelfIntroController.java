@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.repository.SelfIntroRepository;
 import taba.dajoba.service.SelfIntroService;
 
@@ -27,12 +28,23 @@ public class SelfIntroController {
         return selfIntroService.showAllUserSelfIntro(userid, pageable);
     }
 
+    //자기소개서 수정페이지로 이동
+    @GetMapping("users/{userid}/selfintro/{introid}")
+    public ResponseEntity<?> showSelfIntroDetail(@PathVariable Long introid){
+        try {
+            SelfIntroForm form = selfIntroService.showSelfIntroDetail(introid);
+            return ResponseEntity.ok(form);
+        } catch (Exception e) {
+            // 오류 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+
 
     //자기소개서 작성
     @PostMapping("users/{userid}/selfintro")
-    public SelfIntroduction createSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid) {
-        Long id = selfIntroService.selfIntro(userid, form);
-        return selfIntroRepository.findOne(id);
+    public Long createSelfIntro(@ModelAttribute("selfIntroForm") SelfIntroForm form, @PathVariable String userid) throws Exception {
+        return selfIntroService.selfIntro(userid, form);
     }
 
     //자기소개서 수정
@@ -48,8 +60,8 @@ public class SelfIntroController {
 
     //자기소개서 삭제
     @DeleteMapping("users/{userid}/selfintro/{introid}")
-    public String removeSelfIntro(@PathVariable Long introid){
-        int result = selfIntroService.removeSelfIntro(introid);
+    public String removeSelfIntro(@PathVariable String introid){
+        int result = selfIntroService.removeSelfIntro(Long.valueOf(introid));
         return result != 1 ? "success" : "fail";
     }
 }

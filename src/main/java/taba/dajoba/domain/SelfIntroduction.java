@@ -1,8 +1,8 @@
 package taba.dajoba.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import taba.dajoba.controller.SelfIntroForm;
-import taba.dajoba.service.SelfIntroService;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -42,16 +42,26 @@ public class SelfIntroduction {
     @Column(columnDefinition = "number default 1")
     private int signal;
 
-    //SelfIntroduction From을 selfIntroduction entity로 변환 메서드
-    public static SelfIntroduction toSelfIntroductionEntity (SelfIntroForm selfIntroForm){
+    //==SelfIntroduction Form을 selfIntroduction entity로 변환 메서드==//
+    public static SelfIntroduction toSelfIntroductionEntity (User user, SelfIntroForm selfIntroForm){
         SelfIntroduction selfIntroduction = new SelfIntroduction();
         selfIntroduction.introName = selfIntroForm.getIntroName();
         selfIntroduction.introContent = selfIntroForm.getIntroContent();
-        selfIntroduction.user = selfIntroForm.getUser();
+        selfIntroduction.user = user;
         selfIntroduction.desireField = selfIntroForm.getDesireField();
         selfIntroduction.lastUpdated = LocalDate.now();  // 생성 시점의 날짜로 초기화
         selfIntroduction.signal = 1;
         return selfIntroduction;
+    }
+
+    //==SelfIntroduction entity를 SelfIntroduction Form으로 변환 메서드==//
+    public static SelfIntroForm toSelfIntroductionForm (SelfIntroduction selfIntroduction){
+        SelfIntroForm selfIntroForm = new SelfIntroForm();
+        selfIntroForm.setIntroName(selfIntroduction.getIntroName());
+        selfIntroForm.setIntroContent(selfIntroduction.getIntroContent());
+        selfIntroForm.setLastUpdated(selfIntroduction.getLastUpdated());
+        selfIntroForm.setDesireField(selfIntroduction.getDesireField());
+        return selfIntroForm;
     }
 
     //==수정 메서드==//

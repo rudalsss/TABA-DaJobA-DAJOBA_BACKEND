@@ -1,5 +1,7 @@
 package taba.dajoba.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import taba.dajoba.controller.UserExtraInfo;
 import taba.dajoba.controller.UserForm;

@@ -28,23 +28,26 @@ public class SelfIntroService {
      * 자소서
      */
     @Transactional
-    public Long selfIntro(String userId, SelfIntroForm selfIntroForm) {
+    public Long selfIntro(String userId, SelfIntroForm selfIntroForm) throws Exception {
         List<User> users = userRepository.findByUserId(userId);
-        User user = users.get(0);
-        selfIntroForm.setUser(user);
+        if (users.isEmpty()) {
+            throw new Exception("ID에 해당하는 사용자를 찾을 수 없습니다: " + userId);
+        }
+        User user = users.get(0); // userId가 유일하다고 가정하고 첫 번째 결과 사용
         //자소서 이름 중복확인 후 처리
         selfIntroForm = generateUniqueIntroName(userId, selfIntroForm);
         //자소서 저장
-        SelfIntroduction selfIntroduction = SelfIntroduction.toSelfIntroductionEntity(selfIntroForm);
-        selfIntroRepository.save(selfIntroduction);
-        return selfIntroduction.getId();
+        SelfIntroduction selfIntroductionEntity = SelfIntroduction.toSelfIntroductionEntity(user, selfIntroForm);
+        selfIntroRepository.save(selfIntroductionEntity);
+        return selfIntroductionEntity.getId();
     }
 
     /**
      * 자소서 하나 조회
      */
-    public SelfIntroduction showOne(Long introId) {
-        return selfIntroRepository.findOne(introId);
+    public SelfIntroForm showSelfIntroDetail(Long introId) {
+        SelfIntroduction selfIntroduction = selfIntroRepository.findOne(introId);
+        return selfIntroduction.toSelfIntroductionForm(selfIntroduction);
     }
 
     /**
@@ -66,7 +69,9 @@ public class SelfIntroService {
             throw new Exception("자기소개서를 찾을 수 없습니다.");
         }
         //자소서 이름 중복확인 후 처리
-        selfIntroForm = generateUniqueIntroName(userId, selfIntroForm);
+        if(!selfIntroduction.getIntroName().equals(selfIntroForm.getIntroName())) {
+            selfIntroForm = generateUniqueIntroName(userId, selfIntroForm);
+        }
         //자소서 업데이트
         boolean isChanged = selfIntroduction.update(selfIntroForm);
         if (isChanged) {

@@ -43,7 +43,7 @@ public class SelfIntroRepository {
         JPAQueryFactory query = new JPAQueryFactory(em);
         QSelfIntroduction selfIntro = QSelfIntroduction.selfIntroduction;
         JPAQuery<SelfIntroMinForm> querys = query
-                .select(Projections.bean(SelfIntroMinForm.class, selfIntro.id, selfIntro.introName, selfIntro.lastUpdated))
+                .select(Projections.constructor(SelfIntroMinForm.class, selfIntro.id, selfIntro.introName, selfIntro.lastUpdated))
                 .from(selfIntro)
                 .where(selfIntro.user.userId.eq(userId))
                 .orderBy(selfIntro.id.asc())
