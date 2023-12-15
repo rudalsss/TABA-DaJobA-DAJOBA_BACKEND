@@ -1,11 +1,11 @@
 package taba.dajoba.controller;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter @Setter
-public class UserDTO {
-    private Long id;
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserForm {
     private String userId;
     private String password;
     private String name;

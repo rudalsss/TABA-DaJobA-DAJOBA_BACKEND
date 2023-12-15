@@ -1,5 +1,12 @@
 package taba.dajoba.domain;
 
+import javax.persistence.Convert;
+
 public enum AcademicBackgroundGroup {
-    HI, AD, BD, MD, DD  // 고졸, 전문학사(2년제 전문대학), 학사(4년제 졸업), 석사, 박사
+    HI, // 고졸
+    AD, //전문학사(2년제 전문대학)
+    BD, //학사(4년제 졸업)
+    MD, //석사
+    DD  //박사
+
 }

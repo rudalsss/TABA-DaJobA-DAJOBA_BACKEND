@@ -1,7 +1,10 @@
 package taba.dajoba.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
-import taba.dajoba.controller.UserDTO;
+import taba.dajoba.controller.UserExtraInfo;
+import taba.dajoba.controller.UserForm;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,8 +13,12 @@ import java.util.List;
 @Entity
 @Table(name = "dajoba_user")
 @Getter
+@SequenceGenerator(
+        name="dajoba_user_seq", sequenceName = "dajoba_user_seq", initialValue = 1, allocationSize = 1
+)
 public class User {
     @Id
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "dajoba_user_seq")
     @Column(name = "user_id")
     private Long id;
 
@@ -30,48 +37,75 @@ public class User {
 
     private String email;
 
-    private int experience;
+    private int experience = -1;
 
     @Embedded
     private DesireRegion desireRegion;
 
-    private String jobContent;
+    @Enumerated(EnumType.STRING)
+    private AcademicBackgroundGroup academicBackground;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserSkill> userSkills = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_background_id")
-    private AcademicBackground academicBackground;
 
-    //DTO-> Entity 변환메서드
-    public static User toUserEntity (UserDTO userDTO){
+    //Form-> Entity 변환메서드
+    public static User toUserEntity (UserForm userForm){
         User user = new User();
-        user.id = userDTO.getId();
-        user.password = userDTO.getPassword();
-        user.name = userDTO.getName();
-        user.nickname = userDTO.getNickname();
-        user.birth = userDTO.getBirth();
-        user.phoneNumber = userDTO.getPhoneNumber();
-        user.email = userDTO.getEmail();
+        user.userId = userForm.getUserId();
+        user.password = userForm.getPassword();
+        user.name = userForm.getName();
+        user.nickname = userForm.getNickname();
+        user.birth = userForm.getBirth();
+        user.phoneNumber = userForm.getPhoneNumber();
+        user.email = userForm.getEmail();
         return user;
     }
 
-    //Entity-> DTO 변환메서드
-    public static UserDTO toUserDTO(User user){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.id);
-        userDTO.setUserId(user.userId);
-        userDTO.setPassword(user.password);
-        userDTO.setName(user.name);
-        userDTO.setNickname(user.nickname);
-        userDTO.setBirth(user.birth);
-        userDTO.setPhoneNumber(user.phoneNumber);
-        userDTO.setEmail(user.email);
-        return userDTO;
+    //Entity-> Form 변환메서드
+    public static UserForm toUserForm(User user){
+        UserForm userForm = new UserForm();
+        userForm.setUserId(user.userId);
+        userForm.setPassword(user.password);
+        userForm.setName(user.name);
+        userForm.setNickname(user.nickname);
+        userForm.setBirth(user.birth);
+        userForm.setPhoneNumber(user.phoneNumber);
+        userForm.setEmail(user.email);
+        return userForm;
     }
+
+    //Extra정보(필터링정보) 추가하는 메서드
+    public User addExtraInfo(UserExtraInfo userExtraInfo){
+        this.academicBackground = userExtraInfo.getAcademicBackground();
+        this.experience = userExtraInfo.getExperience();
+        this.desireRegion = new DesireRegion(userExtraInfo.getDesireProvince(), userExtraInfo.getDesireCity());
+        return this; //정보 추가한 user반환
+    }
+
+    //Extra정보(필터링정보) 추출하는 메서드
+    public UserExtraInfo loadExtraInfo(){
+        UserExtraInfo extraInfo = new UserExtraInfo();
+        //입력한 추가정보를 가지고 있다면 객체에 추가
+        if(this.academicBackground != null){
+            extraInfo.setAcademicBackground(this.academicBackground);
+        }
+        if(this.experience != -1){
+            extraInfo.setExperience(this.experience);
+        } else {
+            extraInfo.setExperience(-1);
+        }
+        if( this.desireRegion != null && !this.desireRegion.getDesireProvince().equals("")){
+            extraInfo.setDesireProvince(this.desireRegion.getDesireProvince());
+        }
+        if( this.desireRegion != null && !this.desireRegion.getDesireCity().equals("")){
+            extraInfo.setDesireCity(this.desireRegion.getDesireCity());
+        }
+        return extraInfo;//추출한 userinfo정보 반환
+    }
+
 }

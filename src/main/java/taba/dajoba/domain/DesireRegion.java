@@ -1,9 +1,12 @@
 package taba.dajoba.domain;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
+@Getter
 public class DesireRegion {
 
     @Column

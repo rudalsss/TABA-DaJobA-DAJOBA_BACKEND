@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+###querydsl 무시
+/src/main/generated
