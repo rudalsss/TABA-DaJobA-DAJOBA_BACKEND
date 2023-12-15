@@ -42,7 +42,7 @@ public class SelfIntroduction {
     @Column(columnDefinition = "number default 1")
     private int signal;
 
-    //==SelfIntroduction Form을 selfIntroduction entity로 변환 메서드==//
+    //Form-> Entity 변환메서드
     public static SelfIntroduction toSelfIntroductionEntity (User user, SelfIntroForm selfIntroForm){
         SelfIntroduction selfIntroduction = new SelfIntroduction();
         selfIntroduction.introName = selfIntroForm.getIntroName();
@@ -54,7 +54,7 @@ public class SelfIntroduction {
         return selfIntroduction;
     }
 
-    //==SelfIntroduction entity를 SelfIntroduction Form으로 변환 메서드==//
+    //Entity-> Form 변환메서드
     public static SelfIntroForm toSelfIntroductionForm (SelfIntroduction selfIntroduction){
         SelfIntroForm selfIntroForm = new SelfIntroForm();
         selfIntroForm.setIntroName(selfIntroduction.getIntroName());

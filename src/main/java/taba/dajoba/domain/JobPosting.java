@@ -1,6 +1,8 @@
 package taba.dajoba.domain;
 
 import lombok.Getter;
+import taba.dajoba.controller.JobPostingForm;
+import taba.dajoba.controller.MatchForm;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -52,4 +54,21 @@ public class JobPosting {
     @OneToMany(mappedBy = "jobPosting")
     private List<Match> matches;
 
+    //Entity-> Form 변환메서드
+    public static JobPostingForm toJobPostingForm(JobPosting jobPosting){
+        JobPostingForm jobPostingForm = new JobPostingForm();
+        jobPostingForm.setCompany(jobPosting.getCompany());
+        jobPostingForm.setTitle(jobPosting.getTitle());
+        jobPostingForm.setRecruitDeadline(jobPosting.getRecruitDeadline());
+        jobPostingForm.setWorkingArea(jobPosting.getWorkingArea());
+        jobPostingForm.setQualification(jobPosting.getQualification());
+        jobPostingForm.setJobGroup(jobPosting.getJobGroup());
+        jobPostingForm.setGroupIntro(jobPosting.getGroupIntro());
+        jobPostingForm.setPreferential(jobPosting.getPreferential());
+        jobPostingForm.setMainduties(jobPosting.getMainduties());
+        jobPostingForm.setBenefits(jobPosting.getBenefits());
+        jobPostingForm.setTitleImg(jobPosting.getTitleImg());
+        jobPostingForm.setLogoImg(jobPosting.getLogoImg());
+        return jobPostingForm;
+    }
 }

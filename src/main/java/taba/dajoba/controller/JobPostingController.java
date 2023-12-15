@@ -18,7 +18,7 @@ public class JobPostingController {
 
     //전체 채용 공고 전달
     @GetMapping("jobs")
-    public Page<JobPostingForm> showAllJobPostings(
+    public Page<JobPostingMinForm> showAllJobPostings(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -27,7 +27,7 @@ public class JobPostingController {
 
     //직군별 채용 공고 전달
     @GetMapping("jobs/{jobGroup}")
-    public Page<JobPostingForm> showSpecificJobPostings(//@ModelAttribute("jobPostingForm") JobPostingForm form,
+    public Page<JobPostingMinForm> showSpecificJobPostings(//@ModelAttribute("jobPostingForm") JobPostingForm form,
             @PathVariable int jobGroup,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
@@ -37,13 +37,13 @@ public class JobPostingController {
 
     // 홈페이지에 정보 전달
     @GetMapping("jobs/latest")
-    public List<JobPostingForm> topFour() {
+    public List<JobPostingMinForm> topFour() {
         return jobPostingService.topFourFrequent();
     }
 
     //채용 상세정보 전달
     @GetMapping("jobs/detail/{jobid}")
-    public JobPosting showJobPosting(@PathVariable long jobid){
+    public JobPostingForm showJobPosting(@PathVariable long jobid){
         return jobPostingService.findOne(jobid);
     }
 }

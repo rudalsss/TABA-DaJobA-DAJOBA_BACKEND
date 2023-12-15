@@ -4,15 +4,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class JobPostingForm {   //빠른 로딩을 위해 3개 데이터만 처리하기
+import java.sql.Date;
 
+@Setter @Getter
+@NoArgsConstructor
+public class JobPostingForm {
     private String title;
 
-    private Long id;
+    private Date recruitDeadline;
+
+    private String workingArea;
+
+    private int jobGroup;
+
+    private String groupIntro;
+
+    private String mainduties;
+
+    private String qualification;
+
+    private String preferential;
+
+    private String benefits;
 
     private String titleImg;
+
+    private String logoImg;
+
+    private String company;
 
 }

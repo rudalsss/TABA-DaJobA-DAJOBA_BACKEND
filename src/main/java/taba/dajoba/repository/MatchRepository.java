@@ -1,8 +1,10 @@
 package taba.dajoba.repository;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import taba.dajoba.controller.MatchForm;
 import taba.dajoba.domain.Match;
 import taba.dajoba.domain.QMatch;
 import taba.dajoba.domain.QSelfIntroduction;
@@ -38,6 +40,8 @@ public class MatchRepository {
                 .join(selfIntro)
                 .on(match.selfIntroduction.eq(selfIntro))
                 .where(match.selfIntroduction.id.eq(selfIntroId))
+                .orderBy(match.matchScore.desc())
+                .limit(5)
                 .fetch();
     }
 
