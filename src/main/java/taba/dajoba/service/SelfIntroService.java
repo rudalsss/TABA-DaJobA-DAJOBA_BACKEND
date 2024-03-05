@@ -1,6 +1,7 @@
 package taba.dajoba.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,10 @@ public class SelfIntroService {
             selfIntroForm = generateUniqueIntroName(userId, selfIntroForm);
         }
         //자소서 업데이트
+        selfIntroduction.update(fixedIntroName, introContent, field);
+        selfIntroduction.updateSignal();
+        return selfIntroduction;
+      
         boolean isChanged = selfIntroduction.update(selfIntroForm);
         if (isChanged) {
             //해당 자소서 연관된 매칭결과 삭제

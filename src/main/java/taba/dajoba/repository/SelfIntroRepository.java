@@ -14,6 +14,7 @@ import taba.dajoba.controller.SelfIntroMinForm;
 import taba.dajoba.domain.QSelfIntroduction;
 import taba.dajoba.domain.QUser;
 import taba.dajoba.domain.SelfIntroduction;
+import taba.dajoba.domain.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
