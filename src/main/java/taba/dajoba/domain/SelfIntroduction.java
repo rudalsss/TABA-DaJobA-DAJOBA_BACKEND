@@ -1,6 +1,8 @@
 package taba.dajoba.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import taba.dajoba.controller.SelfIntroForm;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -34,29 +36,46 @@ public class SelfIntroduction {
 
     private int desireField;    //희망분야
 
-    @OneToMany(mappedBy = "selfIntroduction")
+    @OneToMany(mappedBy = "selfIntroduction", cascade = CascadeType.REMOVE)
     private List<Match> matches = new ArrayList<>();
 
-    private int signal = 1;
+    @Column(columnDefinition = "number default 1")
+    private int signal;
 
-    //==생성 메서드==//
-    public static SelfIntroduction create(String introName, String introContent, User user, int field) {
+    //Form-> Entity 변환메서드
+    public static SelfIntroduction toSelfIntroductionEntity (User user, SelfIntroForm selfIntroForm){
         SelfIntroduction selfIntroduction = new SelfIntroduction();
-        selfIntroduction.introName = introName;
-        selfIntroduction.introContent = introContent;
+        selfIntroduction.introName = selfIntroForm.getIntroName();
+        selfIntroduction.introContent = selfIntroForm.getIntroContent();
         selfIntroduction.user = user;
-        selfIntroduction.desireField = field;
+        selfIntroduction.desireField = selfIntroForm.getDesireField();
         selfIntroduction.lastUpdated = LocalDate.now();  // 생성 시점의 날짜로 초기화
+        selfIntroduction.signal = 1;
         return selfIntroduction;
     }
 
+    //Entity-> Form 변환메서드
+    public static SelfIntroForm toSelfIntroductionForm (SelfIntroduction selfIntroduction){
+        SelfIntroForm selfIntroForm = new SelfIntroForm();
+        selfIntroForm.setIntroName(selfIntroduction.getIntroName());
+        selfIntroForm.setIntroContent(selfIntroduction.getIntroContent());
+        selfIntroForm.setLastUpdated(selfIntroduction.getLastUpdated());
+        selfIntroForm.setDesireField(selfIntroduction.getDesireField());
+        return selfIntroForm;
+    }
+
     //==수정 메서드==//
-    public void update(String introName, String introContent, int field) {
-        this.introName = introName;
-        this.introContent = introContent;
-        this.desireField = field;
+    public boolean update(SelfIntroForm selfIntroForm) {
+        boolean isContentChanged = !this.introContent.equals(selfIntroForm.getIntroContent());
+        boolean isFieldChanged = this.desireField != selfIntroForm.getDesireField();
+        this.introName = selfIntroForm.getIntroName();
+        this.introContent = selfIntroForm.getIntroContent();
+        this.desireField = selfIntroForm.getDesireField();
         this.lastUpdated = LocalDate.now();  // 수정 시점의 날짜로 업데이트
-        this.signal = 0;
+        return isContentChanged || isFieldChanged;
+    }
+    public void signalUpdate() {
+        this.signal = 1;
     }
 
     //==조회 메서드==//

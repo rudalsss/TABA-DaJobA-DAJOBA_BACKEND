@@ -21,9 +21,7 @@ public class UserController {
      */
     @PostMapping("/signup")
     public User signUp(@ModelAttribute UserForm userForm){
-        System.out.println(userForm.getPassword());
         Long id = userService.join(userForm);
-        System.out.println("받았음");
         return userRepository.findOne(id);
     }
 

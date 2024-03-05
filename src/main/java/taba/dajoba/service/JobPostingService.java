@@ -1,11 +1,13 @@
 package taba.dajoba.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import taba.dajoba.controller.JobPostingForm;
+import taba.dajoba.controller.JobPostingMinForm;
 import taba.dajoba.domain.JobPosting;
-import taba.dajoba.domain.QJobPosting;
-import taba.dajoba.domain.SelfIntroduction;
 import taba.dajoba.repository.JobPostingRepository;
 
 import java.util.List;
@@ -20,21 +22,28 @@ public class JobPostingService {
     /**
      * 채용 공고 하나 조회
      */
-    public JobPosting findOne(Long introId) {
-        return jobPostingRepository.findOne(introId);
+    public JobPostingForm findOne(Long introId) {
+        //Form으로 변환 후 반환
+        return JobPosting.toJobPostingForm(jobPostingRepository.findOne(introId));
     }
 
     /**
      * 채용 조회
      */
-    public List<JobPosting> showAllFrequent() {
-        return jobPostingRepository.showAllFrequent();
+    //==전체 채용 공고 전달==//
+    public Page<JobPostingMinForm> showAllJobPostings(Pageable pageable) {
+        return jobPostingRepository.showAllJobPostings(pageable);
+    }
+
+    //==직군별 채용 공고 전달==//
+    public Page<JobPostingMinForm> showSpecificJobPostings(int field, Pageable pageable) {
+        return jobPostingRepository.showSpecificJobPostings(field, pageable);
     }
 
     /**
      * 채용공고 4개 조회
      */
-    public List<JobPosting> topFourFrequent() {
+    public List<JobPostingMinForm> topFourFrequent() {
         return jobPostingRepository.topFourFrequent();
     }
 

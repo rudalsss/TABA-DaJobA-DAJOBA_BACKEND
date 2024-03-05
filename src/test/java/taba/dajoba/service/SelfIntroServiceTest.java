@@ -35,7 +35,7 @@ class SelfIntroServiceTest {
 
         String introName = "새로운 자기소개";
         String introContent = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        Field field = Field.BUSINESS;
+        int field = 508;
 
         //when
         selfIntroService.selfIntro(userId, introName, introContent, field);
@@ -47,7 +47,7 @@ class SelfIntroServiceTest {
         assertEquals(introName, selfIntroduction.getIntroName());
         assertEquals(introContent, selfIntroduction.getIntroContent());
         assertEquals(userId, selfIntroduction.getUser().getUserId());
-        assertEquals(field, selfIntroduction.getField());
+        assertEquals(field, selfIntroduction.getDesireField());
     }
 
     @Test
@@ -62,11 +62,11 @@ class SelfIntroServiceTest {
 
         String introName1 = "새로운 자기소개";
         String introContent1 = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        Field field1 = Field.BUSINESS;
+        int field1 = 508;
 
         String introName2 = "새로운 자기소개";
         String introContent2 = "안녕하세요, 저는 새로 가입한 사용자입니다.2222";
-        Field field2 = Field.BUSINESS;
+        int field2 = 508;
 
 
 
@@ -102,11 +102,11 @@ class SelfIntroServiceTest {
 
         String introName1 = "새로운 자기소개";
         String introContent1 = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        Field field1 = Field.BUSINESS;
+        int field1 = 508;
 
         String introName2 = "새로운 자기소개";
         String introContent2 = "안녕하세요, 저는 새로 가입한 사용자입니다.2222";
-        Field field2 = Field.BUSINESS;
+        int field2 = 508;
 
         //when
         selfIntroService.selfIntro(userId, introName1, introContent1, field1);
@@ -136,13 +136,13 @@ class SelfIntroServiceTest {
 
         String introName = "새로운 자기소개";
         String introContent = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        Field field = Field.BUSINESS;
+        int field = 508;
         SelfIntroduction selfIntro = selfIntroService.selfIntro(userId, introName, introContent, field);
 
         //when
         String fixedName = "수정된 자기소개서";
         String fixedContent = "안녕하세요, 저는 자기소개서 수정입니다.";
-        Field fixedDF = Field.SERVICE;
+        int fixedDF = 518;
         SelfIntroduction fixedIntro = selfIntroService.updateSelfIntro(userId, selfIntro.getId(),fixedName, fixedContent, fixedDF);
 
         //then
@@ -163,11 +163,11 @@ class SelfIntroServiceTest {
 
         String introName1 = "새로운 자기소개";
         String introContent1 = "안녕하세요, 저는 새로 가입한 사용자입니다.";
-        Field field1 = Field.BUSINESS;
+        int field1 = 508;
 
         String introName2 = "새로운 자기소개";
         String introContent2 = "안녕하세요, 저는 새로 가입한 사용자입니다.2222";
-        Field field2 = Field.BUSINESS;
+        int field2 = 508;
 
 
 

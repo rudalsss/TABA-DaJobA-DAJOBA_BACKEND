@@ -1,5 +1,7 @@
 package taba.dajoba.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import taba.dajoba.controller.UserExtraInfo;
 import taba.dajoba.controller.UserForm;
@@ -43,11 +45,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AcademicBackgroundGroup academicBackground;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<UserSkill> userSkills = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<SelfIntroduction> selfIntroductions = new ArrayList<>();
 
 

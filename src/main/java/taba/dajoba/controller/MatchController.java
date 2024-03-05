@@ -16,8 +16,9 @@ public class MatchController {
     private final MatchService matchService;
 
     @GetMapping("users/{userid}/match/{introid}")
-    public Map<String, Object> loadMatches( @PathVariable Long introid ){
-        List<Match> matches = matchService.findMatches(introid);
+    public Map<String, Object> loadMatches(
+            @PathVariable Long introid){
+        List<MatchForm> matches = matchService.findMatches(introid);
         Map<String, Object> response = new HashMap<>();
         if( matches != null ){
             response.put("matchLists", matches);

@@ -16,7 +16,7 @@ public class UserExtraInfoController {
     /**
      * 추가정보(필터정보) 불러오기
      */
-    @GetMapping("/users/{userid}/extra-info")
+    @GetMapping("/users/{userid}/extrainfo")
     public UserExtraInfo loadExtra(@PathVariable String userid){
         return userExtraInfoService.findInfo(userid);
     }
@@ -24,7 +24,7 @@ public class UserExtraInfoController {
     /**
      * 추가정보(필터정보) 저장 및 수정
      */
-    @PostMapping("/users/{userid}/extra-info")
+    @PostMapping("/users/{userid}/extrainfo")
     public String saveExtra(@PathVariable String userid, @ModelAttribute UserExtraInfo extraInfo){
         User user = userExtraInfoService.updateInfo(userid, extraInfo);
         if(user != null){
